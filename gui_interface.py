@@ -3,12 +3,12 @@ import subprocess
 import datetime
 import os
 import errno
-from system_info import SystemInfo
+from system_interface import SystemInterface
 
 
 class GuiInterface:
     def __init__(self):
-        self.system_info = SystemInfo()
+        self.system_interface = SystemInterface()
         self.root = tk.Tk()
         self.root.title("System Monitor")
         self.root.resizable(False, False)
@@ -95,19 +95,8 @@ class GuiInterface:
                 raise
 
     def update_gui(self):
-        cpu_load = self.system_info.get_cpu_load()
-        memory_usage = self.system_info.get_memory_usage()
-
-        disk_usage = self.system_info.get_disk_usage()
-        gpu_usage = self.system_info.get_gpu_usage()
-
-        progress_bars = [f"CPU{i+1}: {load}%" for i, load in enumerate(cpu_load)] + [
-            f"Memory: {memory_usage}%",
-            f"Disk: {disk_usage}%",
-            f"GPU: {gpu_usage}%",
-        ]
-
-        disk_info = f"Disk Free Space: {self.system_info.get_disk_free_space():.2f} GB"
+        progress_bars = self.system_interface.get_progress_bars()
+        disk_info = self.system_interface.get_disk_info()
 
         text = "\n".join(progress_bars) + "\n" + disk_info
         self.label.config(text=text)
