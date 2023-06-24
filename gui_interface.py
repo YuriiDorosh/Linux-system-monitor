@@ -3,12 +3,13 @@ import subprocess
 import datetime
 import os
 import errno
-from system_interface import SystemInterface
+from system_interface import SystemInterface, ExtendedSystemInterface
 
 
 class GuiInterface:
     def __init__(self):
         self.system_interface = SystemInterface()
+        self.extended_system_interface = ExtendedSystemInterface()
         self.root = tk.Tk()
         self.root.title("System Monitor")
         self.root.resizable(False, False)
@@ -31,6 +32,13 @@ class GuiInterface:
         self.recording = False
         self.process = None
 
+        self.minimalize_button = tk.Button(
+            self.root, text="Minimalize Window", command=self.minimalize_window
+        )
+        self.minimalize_button.pack(pady=5)
+
+        self.minimalize = False
+
     def toggle_topmost(self):
         self.topmost = not self.topmost
 
@@ -38,6 +46,13 @@ class GuiInterface:
             self.root.attributes("-topmost", True)
         else:
             self.root.attributes("-topmost", False)
+
+    def minimalize_window(self):
+        if self.minimalize:
+            self.minimalize = False
+        else:
+            self.minimalize = True
+            self.minimalize_button.config(text="Maximize Window")
 
     def toggle_recording(self):
         if not self.recording:
@@ -95,13 +110,21 @@ class GuiInterface:
                 raise
 
     def update_gui(self):
-        progress_bars = self.system_interface.get_progress_bars()
-        disk_info = self.system_interface.get_disk_info()
+        if self.minimalize:
+            cpu = self.extended_system_interface.get_average_cpu_load()
+            gpu = self.extended_system_interface.get_gpu_usage_percentage()
+            #text = "\n".join(cpu) + "\n" gpu
+            text = cpu + "\n" + gpu
+            self.label.config(text=text)
+            self.root.after(1000, self.update_gui)
+        else:
+            progress_bars = self.system_interface.get_progress_bars()
+            disk_info = self.system_interface.get_disk_info()
 
-        text = "\n".join(progress_bars) + "\n" + disk_info
-        self.label.config(text=text)
+            text = "\n".join(progress_bars) + "\n" + disk_info
+            self.label.config(text=text)
 
-        self.root.after(1000, self.update_gui)
+            self.root.after(1000, self.update_gui)
 
     def run(self):
         self.update_gui()
