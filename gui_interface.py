@@ -19,25 +19,29 @@ class GuiInterface:
 
         self.topmost = False
 
-        self.button = tk.Button(
-            self.root, text="Toggle Topmost", command=self.toggle_topmost
-        )
-        self.button.pack(pady=5)
-
-        self.record_button = tk.Button(
-            self.root, text="Record Screen", command=self.toggle_recording
-        )
-        self.record_button.pack(pady=5)
-
+        self.screen_label = "Rec/Stop Rec"
         self.recording = False
         self.process = None
 
-        self.minimalize_button = tk.Button(
-            self.root, text="Minimalize Window", command=self.minimalize_window
-        )
-        self.minimalize_button.pack(pady=5)
-
+        self.minimalize_label = "Min/Max Win"
         self.minimalize = False
+
+        self.menu = tk.Menu(self.root)
+        self.root.config(menu=self.menu)
+
+        self.file_menu = tk.Menu(self.menu, tearoff=False)
+        self.file_menu.add_command(label="Exit", command=self.root.quit)
+        self.menu.add_cascade(label="File", menu=self.file_menu)
+
+        self.tools_menu = tk.Menu(self.menu, tearoff=False)
+        self.tools_menu.add_command(label="Toggle Topmost", command=self.toggle_topmost)
+        self.tools_menu.add_command(
+            label=self.screen_label, command=self.toggle_recording
+        )
+        self.tools_menu.add_command(
+            label=self.minimalize_label, command=self.minimalize_window
+        )
+        self.menu.add_cascade(label="Tools", menu=self.tools_menu)
 
     def toggle_topmost(self):
         self.topmost = not self.topmost
@@ -52,7 +56,6 @@ class GuiInterface:
             self.minimalize = False
         else:
             self.minimalize = True
-            self.minimalize_button.config(text="Maximize Window")
 
     def toggle_recording(self):
         if not self.recording:
@@ -62,7 +65,6 @@ class GuiInterface:
 
     def start_recording(self):
         self.recording = True
-        self.record_button.config(text="Stop Recording")
 
         now = datetime.datetime.now()
         timestamp = now.strftime("%Y-%m-%d_%H-%M-%S")
@@ -98,12 +100,12 @@ class GuiInterface:
 
     def stop_recording(self):
         self.recording = False
-        self.record_button.config(text="Record Screen")
 
         try:
             self.process.stdin.write("q")
             self.process.stdin.flush()
             self.process.communicate()
+            print("Stop Recording")
 
         except (BrokenPipeError, OSError) as e:
             if e.errno != errno.EPIPE:
@@ -113,7 +115,6 @@ class GuiInterface:
         if self.minimalize:
             cpu = self.extended_system_interface.get_average_cpu_load()
             gpu = self.extended_system_interface.get_gpu_usage_percentage()
-            #text = "\n".join(cpu) + "\n" gpu
             text = cpu + "\n" + gpu
             self.label.config(text=text)
             self.root.after(1000, self.update_gui)
@@ -125,6 +126,26 @@ class GuiInterface:
             self.label.config(text=text)
 
             self.root.after(1000, self.update_gui)
+
+    def show_all_buttons(self):
+        if not hasattr(self, "button_frame"):
+            self.button_frame = tk.Frame(self.root)
+            self.button_frame.pack()
+
+            self.buttons = [
+                self.button,
+                self.record_button,
+                self.minimalize_button,
+            ]
+            for button in self.buttons:
+                button.pack(side="top", padx=10, pady=5, fill="x")
+
+            self.button_frame.pack_propagate(0)
+        else:
+            for button in self.buttons:
+                button.pack_forget()
+            self.button_frame.destroy()
+            del self.button_frame
 
     def run(self):
         self.update_gui()
