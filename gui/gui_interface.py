@@ -73,7 +73,9 @@ class GuiInterface:
         filename = f"output_{timestamp}.mp4"
 
         current_path = os.path.dirname(os.path.abspath(__file__))
-        output_path = os.path.join(current_path, "recordings", filename)
+        parent_path = os.path.dirname(current_path)
+
+        output_path = os.path.join(parent_path, "recordings", filename)
         os.makedirs(os.path.dirname(output_path), exist_ok=True)
 
         print("Starting recording...")
