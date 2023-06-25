@@ -35,7 +35,7 @@ def record():
         [
             "ffmpeg",
             "-video_size",
-            "1920x1080",
+            settings.ScreenRecording.monitor_resolution,
             "-framerate",
             str(settings.ScreenRecording.frame_rate),
             "-f",
