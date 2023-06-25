@@ -3,16 +3,23 @@ import datetime
 import os
 import errno
 
+import settings
 
 process = None
 
 
 def record():
+    """
+    Starts a screen recording using FFmpeg.
+
+    This function initializes a screen recording process using FFmpeg with the specified settings.
+    The output video file will be saved with a timestamped filename in the configured output directory.
+    """
     global process
 
     now = datetime.datetime.now()
     timestamp = now.strftime("%Y-%m-%d_%H-%M-%S")
-    filename = f"output_{timestamp}.mp4"
+    filename = f"output_{timestamp}.{settings.ScreenRecording.video_extension}"
 
     current_path = os.path.dirname(os.path.abspath(__file__))
     parent_path = os.path.dirname(current_path)
@@ -30,7 +37,7 @@ def record():
             "-video_size",
             "1920x1080",
             "-framerate",
-            "30",
+            str(settings.ScreenRecording.frame_rate),
             "-f",
             "x11grab",
             "-i",
@@ -46,6 +53,12 @@ def record():
 
 
 def stop_recording():
+    """
+    Stops the screen recording process.
+
+    This function stops the screen recording process by sending the 'q' command to the FFmpeg process.
+    It flushes the input stream, communicates with the process, and terminates it gracefully.
+    """
     global process
     try:
         process.stdin.write("q")
