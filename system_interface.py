@@ -31,8 +31,9 @@ class ExtendedSystemInterface(SystemInterface):
     def get_average_cpu_load(self):
         cpu_load = self.system_info.get_cpu_load()
         average_load = round(sum(cpu_load) / len(cpu_load), 2)
-        return f"Average CPU Load: {average_load}%"
+
+        return f"AVG CPU: {average_load}%"
 
     def get_gpu_usage_percentage(self):
         gpu_usage = self.system_info.get_gpu_usage()
-        return f"GPU Usage: {gpu_usage}%"
+        return f"GPU: {gpu_usage}%"
