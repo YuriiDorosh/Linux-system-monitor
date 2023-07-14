@@ -1,17 +1,18 @@
 import sys
 
-# import gui
-# import console
+
 from interfaces import gui, console
 
 
 def main():
-    if len(sys.argv) > 1 and sys.argv[1] == "gui":
+    if sys.argv[1] == "--gui" or sys.argv[1] == "-g":
         gui_interface = gui.gui_interface.GuiInterface()
         gui_interface.run()
-    else:
+    elif sys.argv[1] == "--console" or sys.argv[1] == "-c":
         console_interface = console.console_interface.ConsoleInterface()
         console_interface.run()
+    else:
+        pass
 
 
 if __name__ == "__main__":
