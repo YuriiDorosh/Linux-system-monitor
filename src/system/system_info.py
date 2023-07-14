@@ -52,7 +52,9 @@ class SystemInfo:
             cpu_load = SystemInfo.get_cpu_load()
             print(cpu_load)  # Output: [30.2, 40.5, 20.1, ...]
         """
-        return psutil.cpu_percent(interval=settings.SystemInfo.cpu_percent_interval, percpu=True)
+        return psutil.cpu_percent(
+            interval=settings.SystemInfo.cpu_percent_interval, percpu=True
+        )
 
     @staticmethod
     def get_memory_usage():
@@ -123,4 +125,4 @@ class SystemInfo:
             print(disk_free_space)  # Output: 214.5
         """
         disk_usage = psutil.disk_usage("/")
-        return disk_usage.free / (1024 ** 3)
+        return disk_usage.free / (1024**3)

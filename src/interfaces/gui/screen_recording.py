@@ -21,10 +21,14 @@ def record():
     timestamp = now.strftime("%Y-%m-%d_%H-%M-%S")
     filename = f"output_{timestamp}.{settings.ScreenRecording.video_extension}"
 
-    current_path = os.path.dirname(os.path.abspath(__file__))
-    parent_path = os.path.dirname(current_path)
+    # current_path = os.path.dirname(os.path.abspath(__file__))
+    # parent_path = os.path.dirname(current_path)
 
-    output_path = os.path.join(parent_path, "recordings", filename)
+    # output_path = os.path.join(parent_path, "recordings", filename)
+    # os.makedirs(os.path.dirname(output_path), exist_ok=True)
+
+    project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    output_path = os.path.join(project_root, "..", "..", "recordings", filename)
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
 
     print("Starting recording...")

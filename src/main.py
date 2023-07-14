@@ -1,7 +1,8 @@
 import sys
 
-import gui
-import console
+# import gui
+# import console
+from interfaces import gui, console
 
 
 def main():
