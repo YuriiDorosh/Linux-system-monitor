@@ -1,5 +1,7 @@
 black==23.7.0
 click==8.1.5
+customtkinter==5.2.0
+darkdetect==0.8.0
 flake8==6.0.0
 mccabe==0.7.0
 mypy-extensions==1.0.0
