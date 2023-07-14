@@ -74,7 +74,8 @@ class GuiInterface:
         if self.minimalize:
             cpu = self.extended_system_interface.get_average_cpu_load()
             gpu = self.extended_system_interface.get_gpu_usage_percentage()
-            text = cpu + "\n" + gpu
+            ram = self.extended_system_interface.get_memory_usage_gb()
+            text = cpu + "\n" + gpu + "\n" + ram
             self.label.config(text=text)
             self.root.after(1000, self.update_gui)
         else:
