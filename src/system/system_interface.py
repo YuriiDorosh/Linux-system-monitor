@@ -18,7 +18,6 @@ class SystemInterface:
         max_memory = self.system_info.get_max_memory()
         disk_usage = self.system_info.get_disk_usage()
         gpu_usage = self.system_info.get_gpu_usage()
-
         cpu_frequency = self.system_info.get_cpu_frequency()
         gpu_frequency = self.system_info.get_gpu_frequency()
         max_cpu_frequency = self.system_info.get_max_cpu_frequency()
