@@ -44,9 +44,7 @@ class SystemInterface:
         gpu_frequency = self.system_info.get_gpu_frequency()
         max_cpu_frequency = self.system_info.get_max_cpu_frequency()
 
-        progress_bars = [
-            f"CPU{i + 1}: {load}%" for i, load in enumerate(cpu_load)
-        ] + [
+        progress_bars = [f"CPU{i + 1}: {load}%" for i, load in enumerate(cpu_load)] + [
             f"GPU: {gpu_usage}%",
             f"CPU Frequency: \n {round(cpu_frequency, 2)} MHz / {max_cpu_frequency} MHz",
             f"GPU Frequency: {gpu_frequency} MHz",
