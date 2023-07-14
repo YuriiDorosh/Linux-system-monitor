@@ -88,7 +88,7 @@ class SystemInfo:
             print(memory_usage_gb)  # Output: 4.2
         """
         memory = psutil.virtual_memory()
-        memory_gb = memory.used / (1024 ** 3)
+        memory_gb = memory.used / (1024**3)
         return memory_gb
 
     @staticmethod
@@ -104,7 +104,7 @@ class SystemInfo:
             print(max_memory_gb)  # Output: 16.0
         """
         memory = psutil.virtual_memory()
-        max_memory_gb = memory.total / (1024 ** 3)
+        max_memory_gb = memory.total / (1024**3)
         return max_memory_gb
 
     @staticmethod
@@ -173,7 +173,9 @@ class SystemInfo:
             device_name = pynvml.nvmlDeviceGetName(handle)
 
             if "NVIDIA" in device_name:
-                clock_info = pynvml.nvmlDeviceGetClockInfo(handle, pynvml.NVML_CLOCK_GRAPHICS)
+                clock_info = pynvml.nvmlDeviceGetClockInfo(
+                    handle, pynvml.NVML_CLOCK_GRAPHICS
+                )
                 return clock_info / 1000  # Convert to MHz
 
         return 0
@@ -205,4 +207,4 @@ class SystemInfo:
             print(disk_free_space)  # Output: 214.5
         """
         disk_usage = psutil.disk_usage("/")
-        return disk_usage.free / (1024 ** 3)
+        return disk_usage.free / (1024**3)
