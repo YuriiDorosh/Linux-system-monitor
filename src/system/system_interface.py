@@ -2,6 +2,28 @@ from . import system_info
 
 
 class SystemInterface:
+    """
+    A class that provides an interface to retrieve system information and generate progress bars.
+
+    Attributes:
+        system_info (system_info.SystemInfo): An instance of the SystemInfo class for retrieving system information.
+
+    Methods:
+        get_progress_bars(): Retrieves system information and returns a list of progress bars.
+        get_disk_info(): Retrieves disk information and returns it as a string.
+
+    Usage:
+        1. Initialize an instance of the SystemInterface class:
+            sys_interface = SystemInterface()
+
+        2. Access the interface methods:
+            progress_bars = sys_interface.get_progress_bars()
+            disk_info = sys_interface.get_disk_info()
+
+    Notes:
+        - The SystemInterface class depends on the system_info module.
+    """
+
     def __init__(self):
         self.system_info = system_info.SystemInfo()
 
@@ -22,11 +44,13 @@ class SystemInterface:
         gpu_frequency = self.system_info.get_gpu_frequency()
         max_cpu_frequency = self.system_info.get_max_cpu_frequency()
 
-        progress_bars = [f"CPU{i + 1}: {load}%" for i, load in enumerate(cpu_load)] + [
+        progress_bars = [
+            f"CPU{i + 1}: {load}%" for i, load in enumerate(cpu_load)
+        ] + [
             f"GPU: {gpu_usage}%",
             f"CPU Frequency: \n {round(cpu_frequency, 2)} MHz / {max_cpu_frequency} MHz",
             f"GPU Frequency: {gpu_frequency} MHz",
-            f"RAM: {memory_usage}%({round(memory_usage_gb, 2)} / {round(max_memory, 2)}gb)",
+            f"RAM: {memory_usage}% ({round(memory_usage_gb, 2)} / {round(max_memory, 2)} GB)",
             f"Disk: {disk_usage}%",
         ]
 
@@ -44,6 +68,27 @@ class SystemInterface:
 
 
 class ExtendedSystemInterface(SystemInterface):
+    """
+    A class that extends the SystemInterface class with additional methods to retrieve specific system information.
+
+    Methods:
+        get_average_cpu_load(): Calculates and returns the average CPU load.
+        get_gpu_usage_percentage(): Retrieves the GPU usage and returns it as a string.
+        get_memory_usage_gb(): Retrieves the memory usage and maximum memory and returns it as a string.
+
+    Usage:
+        1. Initialize an instance of the ExtendedSystemInterface class:
+            extended_sys_interface = ExtendedSystemInterface()
+
+        2. Access the extended interface methods:
+            avg_cpu_load = extended_sys_interface.get_average_cpu_load()
+            gpu_usage = extended_sys_interface.get_gpu_usage_percentage()
+            memory_usage = extended_sys_interface.get_memory_usage_gb()
+
+    Notes:
+        - The ExtendedSystemInterface class extends the functionality of the SystemInterface class.
+    """
+
     def __init__(self):
         super().__init__()
 
@@ -53,6 +98,10 @@ class ExtendedSystemInterface(SystemInterface):
 
         Returns:
             average_load (str): The average CPU load.
+
+        Example:
+            avg_cpu_load = extended_sys_interface.get_average_cpu_load()
+            print(avg_cpu_load)  # Output: "AVG CPU: 45.23%"
         """
         cpu_load = self.system_info.get_cpu_load()
         average_load = round(sum(cpu_load) / len(cpu_load), 2)
@@ -65,6 +114,10 @@ class ExtendedSystemInterface(SystemInterface):
 
         Returns:
             gpu_usage (str): GPU usage information.
+
+        Example:
+            gpu_usage = extended_sys_interface.get_gpu_usage_percentage()
+            print(gpu_usage)  # Output: "GPU: 54%"
         """
         gpu_usage = self.system_info.get_gpu_usage()
         return f"GPU: {gpu_usage}%"
@@ -75,7 +128,11 @@ class ExtendedSystemInterface(SystemInterface):
 
         Returns:
             memory_usage (str): Memory usage information.
+
+        Example:
+            memory_usage = extended_sys_interface.get_memory_usage_gb()
+            print(memory_usage)  # Output: "RAM: 4.21 GB / 16.0 GB"
         """
         memory_usage_gb = self.system_info.get_memory_usage_gb()
         max_memory = self.system_info.get_max_memory()
-        return f"RAM:{round(memory_usage_gb, 2)} / {round(max_memory, 2)}gb"
+        return f"RAM: {round(memory_usage_gb, 2)} GB / {round(max_memory, 2)} GB"
