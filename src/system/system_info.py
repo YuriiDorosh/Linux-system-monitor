@@ -19,6 +19,9 @@ class SystemInfo:
         get_disk_usage(): Returns the disk usage as a percentage.
         get_gpu_usage(): Returns the GPU usage as a percentage if an NVIDIA GPU is available, otherwise returns 0.
         get_disk_free_space(): Returns the available free space on the disk in gigabytes (GB).
+        get_cpu_frequency(): Returns the current frequency of the CPU in megahertz (MHz).
+        get_gpu_frequency(): Returns the current frequency of the GPU in megahertz (MHz) if an NVIDIA GPU is available, otherwise returns 0.
+        get_max_cpu_frequency(): Returns the maximum CPU frequency in megahertz (MHz).
 
     Usage:
         1. Initialize an instance of the SystemInfo class:
@@ -32,6 +35,9 @@ class SystemInfo:
             disk_usage = system_info.get_disk_usage()
             gpu_usage = system_info.get_gpu_usage()
             disk_free_space = system_info.get_disk_free_space()
+            cpu_frequency = system_info.get_cpu_frequency()
+            gpu_frequency = system_info.get_gpu_frequency()
+            max_cpu_frequency = system_info.get_max_cpu_frequency()
 
     Notes:
         - The SystemInfo class depends on the psutil and pynvml modules.
@@ -40,6 +46,7 @@ class SystemInfo:
         - Memory usage and disk usage are reported as percentages.
         - Memory usage is also reported in gigabytes (GB).
         - Disk free space is reported in gigabytes (GB).
+        - CPU and GPU frequencies are reported in megahertz (MHz).
     """
 
     def __init__(self):
@@ -152,15 +159,27 @@ class SystemInfo:
     @staticmethod
     def get_cpu_frequency():
         """
-        Returns the current frequency of the CPU in MHz.
-        ...
+        Returns the current frequency of the CPU in megahertz (MHz).
+
+        Returns:
+            int: Current frequency of the CPU in megahertz (MHz).
+
+        Example:
+            cpu_frequency = SystemInfo.get_cpu_frequency()
+            print(cpu_frequency)  # Output: 2400
         """
         return psutil.cpu_freq().current
 
     def get_gpu_frequency(self):
         """
         Returns the current frequency of the GPU if an NVIDIA GPU is available, otherwise returns 0.
-        ...
+
+        Returns:
+            int: Current frequency of the GPU in megahertz (MHz) or 0 if no NVIDIA GPU is available.
+
+        Example:
+            gpu_frequency = SystemInfo.get_gpu_frequency()
+            print(gpu_frequency)  # Output: 1750
         """
         if not self.pynvml_initialized:
             pynvml.nvmlInit()
