@@ -1,3 +1,14 @@
+black==23.7.0
+click==8.1.5
+flake8==6.0.0
+mccabe==0.7.0
+mypy-extensions==1.0.0
+packaging==23.1
+pathspec==0.11.1
+platformdirs==3.8.1
 psutil==5.9.5
+pycodestyle==2.10.0
+pyflakes==3.0.1
 Pympler==1.0.1
 pynvml==11.5.0
+tomli==2.0.1
