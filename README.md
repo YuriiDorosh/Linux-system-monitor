@@ -2,13 +2,9 @@
 
 # Linux System Monitor #
 
-![picture alt](src/images/readme/main_page.png)
-
-# Video demonstration
-
+## Video demonstration
 
 [![video_deconstration](https://img.youtube.com/vi/ggcpF1B6nTQ&list=LL&index=16/0.jpg)](https://www.youtube.com/watch?v=ggcpF1B6nTQ&list=LL&index=16)
-
 
 </div>
 
@@ -79,6 +75,14 @@ Navigate to the src/ directory:
 
    ```bash
    cd src/
+   ```
+
+### Greeting window
+
+![picture alt](src/images/readme/main_page.png)
+
+```bash
+   python3 main.py 
    ```
 
 ### GUI Version
