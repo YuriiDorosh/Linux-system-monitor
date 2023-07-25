@@ -4,7 +4,7 @@
 
 ## Video demonstration
 
-[![video_deconstration](https://img.youtube.com/vi/ggcpF1B6nTQ&list=LL&index=16/0.jpg)](https://www.youtube.com/watch?v=ggcpF1B6nTQ&list=LL&index=16)
+[![video_deconstration](https://img.youtube.com/vi/ggcpF1B6nTQ/0.jpg)](https://www.youtube.com/watch?v=ggcpF1B6nTQ)
 
 </div>
 
