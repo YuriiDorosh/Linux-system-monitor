@@ -1,11 +1,16 @@
 import sys
 import platform
 import pynvml
-
 from interfaces import gui, console, greeting
 
 
 def check_nvidia_gpu():
+    """
+    Checks the presence of an NVIDIA graphics card on the system.
+
+    Returns:
+        bool: True if an NVIDIA graphics card is present, otherwise False.
+    """
     try:
         pynvml.nvmlInit()
         device_count = pynvml.nvmlDeviceGetCount()
@@ -17,6 +22,12 @@ def check_nvidia_gpu():
 
 
 def main():
+    """
+    Main function to run the program.
+
+    It checks the operating system and the presence of an NVIDIA graphics card,
+    then launches the appropriate interface or displays relevant messages.
+    """
     if platform.system() == "Windows":
         print("This program is intended for Linux and is not supported on Windows.")
         sys.exit(1)
