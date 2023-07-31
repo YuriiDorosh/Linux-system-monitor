@@ -24,7 +24,7 @@ class SystemInfo:
             get_max_cpu_frequency(): Returns the maximum CPU frequency in megahertz (MHz).
             get_battery_status(): Retrieves battery status information (if available).
             get_battery_percent(): Retrieves battery percentage (if available).
-    <<<<<<< HEAD
+
 
     =======
 
@@ -165,18 +165,18 @@ class SystemInfo:
     @staticmethod
     def get_battery_percent():
         """
-                Retrieves battery percentage.
+        Retrieves battery percentage.
 
-                Returns:
-                    battery_percent (float or None): Battery percentage or None if not supported.
+        Returns:
+            battery_percent (float or None): Battery percentage or None if not supported.
 
-                Example:
-        <<<<<<< HEAD
-                    battery_percent = sys_interface.get_battery_percent()
-        =======
-                    battery_percent = SystemInfo.get_battery_percent()
+        Example:
 
-                    print(battery_percent)  # Output: 90.0
+            battery_percent = sys_interface.get_battery_percent()
+
+            battery_percent = SystemInfo.get_battery_percent()
+
+            print(battery_percent)  # Output: 90.0
         """
         battery = psutil.sensors_battery()
 
