@@ -52,9 +52,9 @@ def main():
     This program supports running in Linux environments with NVIDIA graphics cards.
 
     Usage:
-        To run the GUI version: python(3) __main__.py --gui or python(3) __main__.py -g
-        To run the console version: python(3) __main__.py --console or python(3) __main__.py -c
-        To display this help message: python(3) __main__.py --help or python(3) __main__.py -h
+        To run the GUI version: python(3) main.py --gui or python(3) main.py -g
+        To run the console version: python(3) main.py --console or python(3) main.py -c
+        To display this help message: python(3) main.py --help or python(3) main.py -h
     """
     if "--help" in sys.argv or "-h" in sys.argv:
         print(main.__doc__)
@@ -67,7 +67,7 @@ def main():
         print("This program is intended for Linux and is not supported on Windows.")
         sys.exit(1)
     else:
-        from .interfaces import gui, console, greeting
+        from interfaces import gui, console, greeting
 
         if not check_nvidia_gpu():
             print(
