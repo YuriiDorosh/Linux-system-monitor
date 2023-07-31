@@ -43,6 +43,7 @@ class SystemInterface:
         cpu_frequency = self.system_info.get_cpu_frequency()
         gpu_frequency = self.system_info.get_gpu_frequency()
         max_cpu_frequency = self.system_info.get_max_cpu_frequency()
+        battery_status = self.system_info.get_battery_status()
 
         progress_bars = [f"CPU{i + 1}: {load}%" for i, load in enumerate(cpu_load)] + [
             f"GPU: {gpu_usage}%",
@@ -51,6 +52,10 @@ class SystemInterface:
             f"RAM: {memory_usage}% ({round(memory_usage_gb, 2)} / {round(max_memory, 2)} GB)",
             f"Disk: {disk_usage}%",
         ]
+
+        if battery_status is not None:
+            battery_percent = self.system_info.get_battery_percent()
+            progress_bars.append(f"Battery: {battery_percent}% - {battery_status}")
 
         return progress_bars
 

@@ -22,6 +22,9 @@ class SystemInfo:
         get_cpu_frequency(): Returns the current frequency of the CPU in megahertz (MHz).
         get_gpu_frequency(): Returns the current frequency of the GPU in megahertz (MHz) if an NVIDIA GPU is available, otherwise returns 0.
         get_max_cpu_frequency(): Returns the maximum CPU frequency in megahertz (MHz).
+        get_battery_status(): Retrieves battery status information (if available).
+        get_battery_percent(): Retrieves battery percentage (if available).
+
 
     Usage:
         1. Initialize an instance of the SystemInfo class:
@@ -38,6 +41,8 @@ class SystemInfo:
             cpu_frequency = system_info.get_cpu_frequency()
             gpu_frequency = system_info.get_gpu_frequency()
             max_cpu_frequency = system_info.get_max_cpu_frequency()
+            battery_status = system_info.get_battery_status()
+            battery_percent = system_info.get_battery_percent()
 
     Notes:
         - The SystemInfo class depends on the psutil and pynvml modules.
@@ -47,6 +52,7 @@ class SystemInfo:
         - Memory usage is also reported in gigabytes (GB).
         - Disk free space is reported in gigabytes (GB).
         - CPU and GPU frequencies are reported in megahertz (MHz).
+        - Battery status and percentage are reported if supported by the system. Otherwise, None is returned.
     """
 
     def __init__(self):
@@ -128,6 +134,44 @@ class SystemInfo:
         """
         disk_usage = psutil.disk_usage("/")
         return disk_usage.percent
+
+    def get_battery_status(self):
+        """
+        Retrieves battery status information.
+
+        Returns:
+            battery_info (str or None): Battery status information or None if not supported.
+
+        Example:
+            battery_status = sys_interface.get_battery_status()
+            print(battery_status)  # Output: "Battery: 90% - Charging"
+        """
+        battery = psutil.sensors_battery()
+
+        if battery:
+            status = "Charging" if battery.power_plugged else "Discharging"
+            return status
+
+        return None
+
+    @staticmethod
+    def get_battery_percent():
+        """
+        Retrieves battery percentage.
+
+        Returns:
+            battery_percent (float or None): Battery percentage or None if not supported.
+
+        Example:
+            battery_percent = sys_interface.get_battery_percent()
+            print(battery_percent)  # Output: 90.0
+        """
+        battery = psutil.sensors_battery()
+
+        if battery:
+            return battery.percent
+
+        return None
 
     def get_gpu_usage(self):
         """
