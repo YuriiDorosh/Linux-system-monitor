@@ -9,7 +9,7 @@ class SystemInfo:
     A class that provides system information such as CPU load, memory usage, disk usage, GPU usage, and disk free space.
 
     Attributes:
-        pynvml_initialized (bool): Flag indicating whether the pynvml module has been initialized.
+        _pynvml_initialized (bool): Flag indicating whether the pynvml module has been initialized.
 
     Methods:
         get_cpu_load(): Returns the CPU load as a percentage for each CPU core.
@@ -22,6 +22,8 @@ class SystemInfo:
         get_cpu_frequency(): Returns the current frequency of the CPU in megahertz (MHz).
         get_gpu_frequency(): Returns the current frequency of the GPU in megahertz (MHz) if an NVIDIA GPU is available, otherwise returns 0.
         get_max_cpu_frequency(): Returns the maximum CPU frequency in megahertz (MHz).
+        get_battery_status(): Retrieves battery status information (if available).
+        get_battery_percent(): Retrieves battery percentage (if available).
 
     Usage:
         1. Initialize an instance of the SystemInfo class:
@@ -38,6 +40,8 @@ class SystemInfo:
             cpu_frequency = system_info.get_cpu_frequency()
             gpu_frequency = system_info.get_gpu_frequency()
             max_cpu_frequency = system_info.get_max_cpu_frequency()
+            battery_status = system_info.get_battery_status()
+            battery_percent = system_info.get_battery_percent()
 
     Notes:
         - The SystemInfo class depends on the psutil and pynvml modules.
@@ -47,10 +51,11 @@ class SystemInfo:
         - Memory usage is also reported in gigabytes (GB).
         - Disk free space is reported in gigabytes (GB).
         - CPU and GPU frequencies are reported in megahertz (MHz).
+        - Battery status and percentage are reported if supported by the system. Otherwise, None is returned.
     """
 
     def __init__(self):
-        self.pynvml_initialized = False
+        self._pynvml_initialized = False
 
     @staticmethod
     def get_cpu_load():
@@ -129,6 +134,45 @@ class SystemInfo:
         disk_usage = psutil.disk_usage("/")
         return disk_usage.percent
 
+    @staticmethod
+    def get_battery_status():
+        """
+        Retrieves battery status information.
+
+        Returns:
+            battery_info (str or None): Battery status information or None if not supported.
+
+        Example:
+            battery_status = SystemInfo.get_battery_status()
+            print(battery_status)  # Output: "Battery: 90% - Charging"
+        """
+        battery = psutil.sensors_battery()
+
+        if battery:
+            status = "Charging" if battery.power_plugged else "Discharging"
+            return status
+
+        return None
+
+    @staticmethod
+    def get_battery_percent():
+        """
+        Retrieves battery percentage.
+
+        Returns:
+            battery_percent (float or None): Battery percentage or None if not supported.
+
+        Example:
+            battery_percent = SystemInfo.get_battery_percent()
+            print(battery_percent)  # Output: 90.0
+        """
+        battery = psutil.sensors_battery()
+
+        if battery:
+            return battery.percent
+
+        return None
+
     def get_gpu_usage(self):
         """
         Returns the GPU usage as a percentage if an NVIDIA GPU is available, otherwise returns 0.
@@ -140,9 +184,9 @@ class SystemInfo:
             gpu_usage = SystemInfo.get_gpu_usage()
             print(gpu_usage)  # Output: 54
         """
-        if not self.pynvml_initialized:
+        if not self._pynvml_initialized:
             pynvml.nvmlInit()
-            self.pynvml_initialized = True
+            self._pynvml_initialized = True
 
         device_count = pynvml.nvmlDeviceGetCount()
 
@@ -181,9 +225,9 @@ class SystemInfo:
             gpu_frequency = SystemInfo.get_gpu_frequency()
             print(gpu_frequency)  # Output: 1750
         """
-        if not self.pynvml_initialized:
+        if not self._pynvml_initialized:
             pynvml.nvmlInit()
-            self.pynvml_initialized = True
+            self._pynvml_initialized = True
 
         device_count = pynvml.nvmlDeviceGetCount()
 
