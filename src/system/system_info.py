@@ -9,7 +9,7 @@ class SystemInfo:
     A class that provides system information such as CPU load, memory usage, disk usage, GPU usage, and disk free space.
 
     Attributes:
-        pynvml_initialized (bool): Flag indicating whether the pynvml module has been initialized.
+        _pynvml_initialized (bool): Flag indicating whether the pynvml module has been initialized.
 
     Methods:
         get_cpu_load(): Returns the CPU load as a percentage for each CPU core.
@@ -24,7 +24,10 @@ class SystemInfo:
         get_max_cpu_frequency(): Returns the maximum CPU frequency in megahertz (MHz).
         get_battery_status(): Retrieves battery status information (if available).
         get_battery_percent(): Retrieves battery percentage (if available).
+<<<<<<< HEAD
 
+=======
+>>>>>>> develop
 
     Usage:
         1. Initialize an instance of the SystemInfo class:
@@ -56,7 +59,7 @@ class SystemInfo:
     """
 
     def __init__(self):
-        self.pynvml_initialized = False
+        self._pynvml_initialized = False
 
     @staticmethod
     def get_cpu_load():
@@ -135,7 +138,12 @@ class SystemInfo:
         disk_usage = psutil.disk_usage("/")
         return disk_usage.percent
 
+<<<<<<< HEAD
     def get_battery_status(self):
+=======
+    @staticmethod
+    def get_battery_status():
+>>>>>>> develop
         """
         Retrieves battery status information.
 
@@ -143,7 +151,11 @@ class SystemInfo:
             battery_info (str or None): Battery status information or None if not supported.
 
         Example:
+<<<<<<< HEAD
             battery_status = sys_interface.get_battery_status()
+=======
+            battery_status = SystemInfo.get_battery_status()
+>>>>>>> develop
             print(battery_status)  # Output: "Battery: 90% - Charging"
         """
         battery = psutil.sensors_battery()
@@ -163,7 +175,11 @@ class SystemInfo:
             battery_percent (float or None): Battery percentage or None if not supported.
 
         Example:
+<<<<<<< HEAD
             battery_percent = sys_interface.get_battery_percent()
+=======
+            battery_percent = SystemInfo.get_battery_percent()
+>>>>>>> develop
             print(battery_percent)  # Output: 90.0
         """
         battery = psutil.sensors_battery()
@@ -184,9 +200,9 @@ class SystemInfo:
             gpu_usage = SystemInfo.get_gpu_usage()
             print(gpu_usage)  # Output: 54
         """
-        if not self.pynvml_initialized:
+        if not self._pynvml_initialized:
             pynvml.nvmlInit()
-            self.pynvml_initialized = True
+            self._pynvml_initialized = True
 
         device_count = pynvml.nvmlDeviceGetCount()
 
@@ -225,9 +241,9 @@ class SystemInfo:
             gpu_frequency = SystemInfo.get_gpu_frequency()
             print(gpu_frequency)  # Output: 1750
         """
-        if not self.pynvml_initialized:
+        if not self._pynvml_initialized:
             pynvml.nvmlInit()
-            self.pynvml_initialized = True
+            self._pynvml_initialized = True
 
         device_count = pynvml.nvmlDeviceGetCount()
 

@@ -81,19 +81,47 @@ class ScreenRecording:
 
 
 # Load data from the JSON file
-with open("settings.json") as json_file:
-    data = json.load(json_file)
+def load_settings_from_json(file_path):
+    """
+    Load settings from a JSON file.
+
+    This function reads the contents of the specified JSON file and returns the data as a dictionary.
+
+    Args:
+        file_path (str): The path to the JSON file.
+
+    Returns:
+        dict: A dictionary containing the data loaded from the JSON file.
+
+    Raises:
+        FileNotFoundError: If the specified JSON file is not found.
+        ValueError: If there is an error decoding the JSON in the file.
+    """
+    try:
+        with open(file_path) as json_file:
+            data = json.load(json_file)
+            return data
+    except FileNotFoundError:
+        print(f"Settings file not found: {file_path}")
+        return {}
+    except json.JSONDecodeError:
+        print(f"Error decoding JSON in settings file: {file_path}")
+        return {}
+
+
+settings_file_path = "settings.json"
+settings_data = load_settings_from_json(settings_file_path)
 
 # Update attributes in the SystemInfo class
-SystemInfo.cpu_percent_interval = data.get(
+SystemInfo.cpu_percent_interval = settings_data.get(
     "cpu_percent_interval", SystemInfo.cpu_percent_interval
 )
 
 # Update attributes in the ScreenRecording class
-ScreenRecording.video_extension = data.get(
+ScreenRecording.video_extension = settings_data.get(
     "video_format", ScreenRecording.video_extension
 )
-ScreenRecording.frame_rate = data.get("fps", ScreenRecording.frame_rate)
-ScreenRecording.monitor_resolution = data.get(
+ScreenRecording.frame_rate = settings_data.get("fps", ScreenRecording.frame_rate)
+ScreenRecording.monitor_resolution = settings_data.get(
     "monitor_resolution", ScreenRecording.monitor_resolution
 )
