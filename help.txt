@@ -1,0 +1,60 @@
+Linux System Monitor - Help
+
+Linux System Monitor is a straightforward program that offers both console and graphical interfaces. Its primary function is to monitor the real-time performance of your PC. Please note that this is not an exact replica of the Linux system monitor found in every system.
+
+Usage:
+To run the program, navigate to the 'src/' directory and use the following commands:
+
+1. Greeting Window:
+   - Command: python3 main.py
+   - Description: Launches the greeting window with basic information about the program.
+
+2. GUI Version:
+   - Command: python3 main.py -g
+   - Alternative Command: python3 main.py --gui
+   - Description: Launches the graphical interface for real-time PC load monitoring.
+
+3. Console Version:
+   - Command: python3 main.py -c
+   - Alternative Command: python3 main.py --console
+   - Description: Launches the console interface for real-time PC load monitoring.
+
+Additional Instructions:
+
+If the user has trouble opening video files recorded using this program:
+Install Additional Codecs:
+Sometimes additional codecs need to be installed separately to support certain video types. For example, installing packages with H.264 support might help. On Ubuntu, you can install codec packages with the following commands:
+
+    sudo apt update
+    sudo apt install ubuntu-restricted-extras
+
+
+If the user has an NVIDIA graphics card but still cannot run the program:
+Check NVIDIA Driver Status:
+Run the following command in the terminal to check if the NVIDIA driver is installed on your system:
+
+    ubuntu-drivers devices
+
+
+This command will show a list of available drivers and indicate whether NVIDIA is installed.
+
+Install NVIDIA Driver:
+If the NVIDIA driver is not installed, you can install it using the command:
+
+    sudo ubuntu-drivers autoinstall
+
+
+This command will automatically install the recommended NVIDIA driver for your graphics card.
+
+Restart the System:
+After installing the NVIDIA driver, it's recommended to restart your system to apply the changes.
+
+
+Note: Please make sure to have the following dependencies installed before using the tool:
+- `ffmpeg`
+- `git`
+- `python3`
+- `pip3`
+
+
+Thank you for using Linux System Monitor! For more details, check the project's README file.
