@@ -3,6 +3,8 @@ import platform
 import os
 from system.checkers import nvidia_checker
 
+from args import HELP_ARGS, GUI_ARGS, CONSOLE_ARGS
+
 
 def ask_user_to_continue() -> bool:
     """
@@ -56,7 +58,7 @@ def main() -> None:
         To run the console version: python(3) main.py --console or python(3) main.py -c
         To display this help message: python(3) main.py --help or python(3) main.py -h
     """
-    if "--help" in sys.argv or "-h" in sys.argv:
+    if any(arg in sys.argv for arg in HELP_ARGS):
         print(main.__doc__)
         help_text = get_help_text()
         print(f"\n{'*' * 50}\n" "\nAdditional Help Text:" "\n")
@@ -79,10 +81,10 @@ def main() -> None:
             if not ask_user_to_continue():
                 sys.exit(0)
         if len(sys.argv) > 1:
-            if sys.argv[1] == "--gui" or sys.argv[1] == "-g":
+            if any(arg in sys.argv for arg in GUI_ARGS):
                 gui_interface = gui.gui_interface.GuiInterface()
                 gui_interface.run()
-            elif sys.argv[1] == "--console" or sys.argv[1] == "-c":
+            elif any(arg in sys.argv for arg in CONSOLE_ARGS):
                 console_interface = console.console_interface.ConsoleInterface()
                 console_interface.run()
         else:
