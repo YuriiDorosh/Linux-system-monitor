@@ -45,12 +45,11 @@ class ConsoleInterface:
         stdscr.addstr(0, 0, "Press 'q' to quit.")
 
         progress_bars = self.system_interface.get_progress_bars()
-        disk_info = self.system_interface.get_disk_info()
 
         for i, progress_bar in enumerate(progress_bars):
             stdscr.addstr(i + 2, 0, progress_bar)
 
-        stdscr.addstr(len(progress_bars) + 2, 0, disk_info)
+        stdscr.addstr(str(len(progress_bars) + 2), 0)
 
         stdscr.refresh()
 
