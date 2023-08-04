@@ -4,7 +4,13 @@ import os
 from system.checkers import nvidia_checker
 
 
-def ask_user_to_continue():
+def ask_user_to_continue() -> bool:
+    """
+    Asks the user whether to continue or exit the program.
+
+    Returns:
+        bool: True if the user chooses to continue, False if the user chooses to exit.
+    """
     while True:
         user_input = input("(C)ontinue/(E)xit: ")
         if user_input.lower() == "c" or user_input.lower() == "continue":
@@ -12,11 +18,13 @@ def ask_user_to_continue():
         if user_input.lower() == "e" or user_input.lower() == "exit":
             return False
         else:
-            print("\nPlease, write 'C' or 'continue' if You want to run the program\n"
-                  "and 'E' or 'exit' for cancel action\n")
+            print(
+                "\nPlease, write 'C' or 'continue' if you want to run the program\n"
+                "and 'E' or 'exit' to cancel the action.\n"
+            )
 
 
-def get_help_text():
+def get_help_text() -> str:
     """
     Retrieves the content of the help file.
 
@@ -34,7 +42,7 @@ def get_help_text():
         return "Help file not found."
 
 
-def main():
+def main() -> None:
     """
     Main function to run the program.
 
@@ -63,7 +71,6 @@ def main():
 
         if not nvidia_checker.CheckNvidia.is_nvidia_gpu_present:
             print(
-                # "This program works only with NVIDIA video cards."
                 "\nThe full functionality of the program can be obtained only with an Nvidia video card."
                 "\nIf you have an NVIDIA graphics card, check if the drivers are installed."
                 "\nTry(Ubuntu): sudo ubuntu-drivers autoinstall"
