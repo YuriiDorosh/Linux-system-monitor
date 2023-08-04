@@ -6,17 +6,15 @@ from .memory import Memory
 from .disk import Disk
 from .video_cards.nvidia import Nvidia
 
+from typing import List
+
 
 class SystemInterface:
     """
     A class that provides an interface to retrieve system information and generate progress bars.
 
-    Attributes:
-        system_info (system_info.SystemInfo): An instance of the SystemInfo class for retrieving system information.
-
     Methods:
-        get_progress_bars(): Retrieves system information and returns a list of progress bars.
-        get_disk_info(): Retrieves disk information and returns it as a string.
+        get_progress_bars() -> List[str]: Retrieves system information and returns a list of progress bars.
 
     Usage:
         1. Initialize an instance of the SystemInterface class:
@@ -24,10 +22,18 @@ class SystemInterface:
 
         2. Access the interface methods:
             progress_bars = sys_interface.get_progress_bars()
-            disk_info = sys_interface.get_disk_info()
 
     Notes:
-        - The SystemInterface class depends on the system_info module.
+        - The SystemInterface class provides an interface to gather system information,
+          but the implementation details for system_info methods are not included here.
+
+    Attributes:
+        processor (Processor): An instance of the Processor class to retrieve CPU-related information.
+        battery (Battery): An instance of the Battery class to retrieve battery-related information.
+        memory (Memory): An instance of the Memory class to retrieve memory-related information.
+        disk (Disk): An instance of the Disk class to retrieve disk-related information.
+        nvidia (Nvidia): An instance of the Nvidia class to retrieve NVIDIA GPU-related information.
+        nvidia_checker (CheckNvidia): An instance of the CheckNvidia class to check NVIDIA GPU presence.
     """
 
     def __init__(self):
@@ -38,7 +44,7 @@ class SystemInterface:
         self.nvidia = Nvidia()
         self.nvidia_checker = nvidia_checker.CheckNvidia()
 
-    def get_progress_bars(self):
+    def get_progress_bars(self) -> List[str]:
         """
         Retrieves system information and returns a list of progress bars.
 
@@ -88,9 +94,9 @@ class ExtendedSystemInterface(SystemInterface):
     A class that extends the SystemInterface class with additional methods to retrieve specific system information.
 
     Methods:
-        get_average_cpu_load(): Calculates and returns the average CPU load.
-        get_gpu_usage_percentage(): Retrieves the GPU usage and returns it as a string.
-        get_memory_usage_gb(): Retrieves the memory usage and maximum memory and returns it as a string.
+        get_average_cpu_load() -> str: Calculates and returns the average CPU load.
+        get_gpu_usage_percentage() -> str: Retrieves the GPU usage and returns it as a string.
+        get_memory_usage_gb() -> str: Retrieves the memory usage and maximum memory and returns it as a string.
 
     Usage:
         1. Initialize an instance of the ExtendedSystemInterface class:
@@ -103,55 +109,64 @@ class ExtendedSystemInterface(SystemInterface):
 
     Notes:
         - The ExtendedSystemInterface class extends the functionality of the SystemInterface class.
+        - It provides additional methods for specific system information.
+        - The implementation details for the extended methods are not included here and should be provided in subclasses.
+
+    Attributes:
+        Inherits all attributes from the SystemInterface class.
     """
 
-    def __init__(self):
-        super().__init__()
 
-    def get_average_cpu_load(self):
-        """
-        Calculates and returns the average CPU load.
+def __init__(self):
+    super().__init__()
 
-        Returns:
-            average_load (str): The average CPU load.
 
-        Example:
-            avg_cpu_load = extended_sys_interface.get_average_cpu_load()
-            print(avg_cpu_load)  # Output: "AVG CPU: 45.23%"
-        """
-        cpu_load = self.processor.get_cpu_load()
-        average_load = round(sum(cpu_load) / len(cpu_load), 2)
+def get_average_cpu_load(self) -> str:
+    """
+    Calculates and returns the average CPU load.
 
-        return f"AVG CPU: {average_load}%"
+    Returns:
+        average_load (str): The average CPU load.
 
-    def get_gpu_usage_percentage(self):
-        """
-        Retrieves the GPU usage and returns it as a string.
+    Example:
+        avg_cpu_load = extended_sys_interface.get_average_cpu_load()
+        print(avg_cpu_load)  # Output: "AVG CPU: 45.23%"
+    """
+    cpu_load = self.processor.get_cpu_load()
+    average_load = round(sum(cpu_load) / len(cpu_load), 2)
 
-        Returns:
-            gpu_usage (str): GPU usage information.
+    return f"AVG CPU: {average_load}%"
 
-        Example:
-            gpu_usage = extended_sys_interface.get_gpu_usage_percentage()
-            print(gpu_usage)  # Output: "GPU: 54%"
-        """
-        if self.nvidia_checker.is_nvidia_gpu_present():
-            nvidia_usage = self.nvidia.get_gpu_usage()
-            return f"GPU: {nvidia_usage}%"
-        else:
-            return "GPU: no info"
 
-    def get_memory_usage_gb(self):
-        """
-        Retrieves the memory usage and maximum memory and returns it as a string.
+def get_gpu_usage_percentage(self) -> str:
+    """
+    Retrieves the GPU usage and returns it as a string.
 
-        Returns:
-            memory_usage (str): Memory usage information.
+    Returns:
+        gpu_usage (str): GPU usage information.
 
-        Example:
-            memory_usage = extended_sys_interface.get_memory_usage_gb()
-            print(memory_usage)  # Output: "RAM: 4.21 GB / 16.0 GB"
-        """
-        memory_usage_gb = self.memory.get_memory_usage_gb()
-        max_memory = self.memory.get_max_memory()
-        return f"RAM: {round(memory_usage_gb, 2)} GB / {round(max_memory, 2)} GB"
+    Example:
+        gpu_usage = extended_sys_interface.get_gpu_usage_percentage()
+        print(gpu_usage)  # Output: "GPU: 54%"
+    """
+    if self.nvidia_checker.is_nvidia_gpu_present():
+        nvidia_usage = self.nvidia.get_gpu_usage()
+        return f"GPU: {nvidia_usage}%"
+    else:
+        return "GPU: no info"
+
+
+def get_memory_usage_gb(self) -> str:
+    """
+    Retrieves the memory usage and maximum memory and returns it as a string.
+
+    Returns:
+        memory_usage (str): Memory usage information.
+
+    Example:
+        memory_usage = extended_sys_interface.get_memory_usage_gb()
+        print(memory_usage)  # Output: "RAM: 4.21 GB / 16.0 GB"
+    """
+    memory_usage_gb = self.memory.get_memory_usage_gb()
+    max_memory = self.memory.get_max_memory()
+    return f"RAM: {round(memory_usage_gb, 2)} GB / {round(max_memory, 2)} GB"
