@@ -6,22 +6,47 @@ settings = importlib.import_module(module_name)
 
 
 class Processor:
+    """
+    A class that provides methods to retrieve CPU-related information.
+
+    Attributes:
+        system_info (settings.SystemInfo): An instance of the SystemInfo class for retrieving system information.
+
+    Methods:
+        get_cpu_load() -> List[float]: Returns the CPU load as a percentage for each CPU core.
+        get_cpu_frequency() -> int: Returns the current frequency of the CPU in megahertz (MHz).
+        get_max_cpu_frequency() -> int: Returns the maximum CPU frequency in megahertz (MHz).
+        check_info() -> None: Prints information about the CPU, including load and frequency.
+
+    Usage:
+        1. Initialize an instance of the Processor class:
+            processor = Processor()
+
+        2. Access the methods to retrieve CPU information:
+            cpu_load = processor.get_cpu_load()
+            cpu_frequency = processor.get_cpu_frequency()
+            max_cpu_frequency = processor.get_max_cpu_frequency()
+            processor.check_info()
+
+    Notes:
+        - The Processor class depends on the settings module for system information.
+    """
+
     def __init__(self):
         self.system_info = settings.SystemInfo()
 
-    def get_cpu_load(self):
+    def get_cpu_load(self) -> float:
         """
         Returns the CPU load as a percentage for each CPU core.
 
         Returns:
-            list: A list of CPU load percentages for each CPU core.
+            float: A list of CPU load percentages for each CPU core.
         """
-
         return psutil.cpu_percent(
             interval=self.system_info.cpu_percent_interval, percpu=True
         )
 
-    def check_info(self):
+    def check_info(self) -> None:
         """
         Prints information about the CPU, including load and frequency.
         """
@@ -31,21 +56,21 @@ class Processor:
         print(f"Max CPU Frequency: {self.get_max_cpu_frequency()} MHz")
 
     @staticmethod
-    def get_cpu_frequency():
+    def get_cpu_frequency() -> float:
         """
         Returns the current frequency of the CPU in megahertz (MHz).
 
         Returns:
-            int: Current frequency of the CPU in megahertz (MHz).
+            float: Current frequency of the CPU in megahertz (MHz).
         """
         return psutil.cpu_freq().current
 
     @staticmethod
-    def get_max_cpu_frequency():
+    def get_max_cpu_frequency() -> float:
         """
         Returns the maximum CPU frequency in megahertz (MHz).
 
         Returns:
-            int: Maximum CPU frequency in megahertz (MHz).
+            float: Maximum CPU frequency in megahertz (MHz).
         """
         return psutil.cpu_freq().max
