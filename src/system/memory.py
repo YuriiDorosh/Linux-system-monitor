@@ -2,8 +2,29 @@ import psutil
 
 
 class Memory:
+    """
+    A class that provides methods to retrieve memory-related information.
+
+    Methods:
+        get_memory_usage() -> float: Returns the memory usage as a percentage.
+        get_memory_usage_gb() -> float: Returns the memory usage in gigabytes (GB).
+        get_max_memory() -> float: Returns the maximum available memory in gigabytes (GB).
+
+    Usage:
+        1. Initialize an instance of the Memory class:
+            memory = Memory()
+
+        2. Access the methods to retrieve memory information:
+            memory_usage = memory.get_memory_usage()
+            memory_usage_gb = memory.get_memory_usage_gb()
+            max_memory_gb = memory.get_max_memory()
+
+    Notes:
+        - The Memory class depends on the psutil module for memory information.
+    """
+
     @staticmethod
-    def get_memory_usage():
+    def get_memory_usage() -> float:
         """
         Returns the memory usage as a percentage.
 
@@ -18,7 +39,7 @@ class Memory:
         return psutil.virtual_memory().percent
 
     @staticmethod
-    def get_memory_usage_gb():
+    def get_memory_usage_gb() -> float:
         """
         Returns the memory usage in gigabytes (GB).
 
@@ -35,7 +56,7 @@ class Memory:
         return memory_gb
 
     @staticmethod
-    def get_max_memory():
+    def get_max_memory() -> float:
         """
         Returns the maximum available memory in gigabytes (GB).
 
