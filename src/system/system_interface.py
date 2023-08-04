@@ -72,14 +72,14 @@ class SystemInterface:
             )
 
         progress_bars = (
-            [f"CPU{i + 1}: {load}%" for i, load in enumerate(cpu_load)]
-            + gpu_bars
-            + [
-                f"CPU Frequency: \n {round(cpu_frequency, 2)} MHz / {max_cpu_frequency} MHz",
-                f"RAM: {memory_usage}% ({round(memory_usage_gb, 2)} / {round(max_memory, 2)} GB)",
-                f"Disk: {disk_usage}%",
-                f"Disk Free Space: {disk_free_space:.2f} GB",
-            ]
+                [f"CPU{i + 1}: {load}%" for i, load in enumerate(cpu_load)]
+                + gpu_bars
+                + [
+                    f"CPU Frequency: \n {round(cpu_frequency, 2)} MHz / {max_cpu_frequency} MHz",
+                    f"RAM: {memory_usage}% ({round(memory_usage_gb, 2)} / {round(max_memory, 2)} GB)",
+                    f"Disk: {disk_usage}%",
+                    f"Disk Free Space: {disk_free_space:.2f} GB",
+                ]
         )
 
         if battery_status is not None:
@@ -116,57 +116,53 @@ class ExtendedSystemInterface(SystemInterface):
         Inherits all attributes from the SystemInterface class.
     """
 
+    def __init__(self):
+        super().__init__()
 
-def __init__(self):
-    super().__init__()
+    def get_average_cpu_load(self) -> str:
+        """
+        Calculates and returns the average CPU load.
 
+        Returns:
+            average_load (str): The average CPU load.
 
-def get_average_cpu_load(self) -> str:
-    """
-    Calculates and returns the average CPU load.
+        Example:
+            avg_cpu_load = extended_sys_interface.get_average_cpu_load()
+            print(avg_cpu_load)  # Output: "AVG CPU: 45.23%"
+        """
+        cpu_load = self.processor.get_cpu_load()
+        average_load = round(sum(cpu_load) / len(cpu_load), 2)
 
-    Returns:
-        average_load (str): The average CPU load.
+        return f"AVG CPU: {average_load}%"
 
-    Example:
-        avg_cpu_load = extended_sys_interface.get_average_cpu_load()
-        print(avg_cpu_load)  # Output: "AVG CPU: 45.23%"
-    """
-    cpu_load = self.processor.get_cpu_load()
-    average_load = round(sum(cpu_load) / len(cpu_load), 2)
+    def get_gpu_usage_percentage(self) -> str:
+        """
+        Retrieves the GPU usage and returns it as a string.
 
-    return f"AVG CPU: {average_load}%"
+        Returns:
+            gpu_usage (str): GPU usage information.
 
+        Example:
+            gpu_usage = extended_sys_interface.get_gpu_usage_percentage()
+            print(gpu_usage)  # Output: "GPU: 54%"
+        """
+        if self.nvidia_checker.is_nvidia_gpu_present():
+            nvidia_usage = self.nvidia.get_gpu_usage()
+            return f"GPU: {nvidia_usage}%"
+        else:
+            return "GPU: no info"
 
-def get_gpu_usage_percentage(self) -> str:
-    """
-    Retrieves the GPU usage and returns it as a string.
+    def get_memory_usage_gb(self) -> str:
+        """
+        Retrieves the memory usage and maximum memory and returns it as a string.
 
-    Returns:
-        gpu_usage (str): GPU usage information.
+        Returns:
+            memory_usage (str): Memory usage information.
 
-    Example:
-        gpu_usage = extended_sys_interface.get_gpu_usage_percentage()
-        print(gpu_usage)  # Output: "GPU: 54%"
-    """
-    if self.nvidia_checker.is_nvidia_gpu_present():
-        nvidia_usage = self.nvidia.get_gpu_usage()
-        return f"GPU: {nvidia_usage}%"
-    else:
-        return "GPU: no info"
-
-
-def get_memory_usage_gb(self) -> str:
-    """
-    Retrieves the memory usage and maximum memory and returns it as a string.
-
-    Returns:
-        memory_usage (str): Memory usage information.
-
-    Example:
-        memory_usage = extended_sys_interface.get_memory_usage_gb()
-        print(memory_usage)  # Output: "RAM: 4.21 GB / 16.0 GB"
-    """
-    memory_usage_gb = self.memory.get_memory_usage_gb()
-    max_memory = self.memory.get_max_memory()
-    return f"RAM: {round(memory_usage_gb, 2)} GB / {round(max_memory, 2)} GB"
+        Example:
+            memory_usage = extended_sys_interface.get_memory_usage_gb()
+            print(memory_usage)  # Output: "RAM: 4.21 GB / 16.0 GB"
+        """
+        memory_usage_gb = self.memory.get_memory_usage_gb()
+        max_memory = self.memory.get_max_memory()
+        return f"RAM: {round(memory_usage_gb, 2)} GB / {round(max_memory, 2)} GB"
