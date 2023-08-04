@@ -80,6 +80,14 @@ class ScreenRecording:
     # 7680x4320
 
 
+class KeyBindings:
+
+    topmost = '<Control-t>'
+    start_recording = '<Control-r>'
+    minimalize = '<Control-m>'
+    screenshot = '<Control-s>'
+
+
 # Load data from the JSON file
 def load_settings_from_json(file_path):
     """
