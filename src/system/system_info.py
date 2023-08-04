@@ -6,56 +6,56 @@ import settings
 
 class SystemInfo:
     """
-        A class that provides system information such as CPU load, memory usage, disk usage, GPU usage, and disk free space.
+    A class that provides system information such as CPU load, memory usage, disk usage, GPU usage, and disk free space.
 
-        Attributes:
-            _pynvml_initialized (bool): Flag indicating whether the pynvml module has been initialized.
+    Attributes:
+        _pynvml_initialized (bool): Flag indicating whether the pynvml module has been initialized.
 
-        Methods:
-            get_cpu_load(): Returns the CPU load as a percentage for each CPU core.
-            get_memory_usage(): Returns the memory usage as a percentage.
-            get_memory_usage_gb(): Returns the memory usage in gigabytes (GB).
-            get_max_memory(): Returns the maximum available memory in gigabytes (GB).
-            get_disk_usage(): Returns the disk usage as a percentage.
-            get_gpu_usage(): Returns the GPU usage as a percentage if an NVIDIA GPU is available, otherwise returns 0.
-            get_disk_free_space(): Returns the available free space on the disk in gigabytes (GB).
-            get_cpu_frequency(): Returns the current frequency of the CPU in megahertz (MHz).
-            get_gpu_frequency(): Returns the current frequency of the GPU in megahertz (MHz) if an NVIDIA GPU is available, otherwise returns 0.
-            get_max_cpu_frequency(): Returns the maximum CPU frequency in megahertz (MHz).
-            get_battery_status(): Retrieves battery status information (if available).
-            get_battery_percent(): Retrieves battery percentage (if available).
-
-
-    =======
+    Methods:
+        get_cpu_load(): Returns the CPU load as a percentage for each CPU core.
+        get_memory_usage(): Returns the memory usage as a percentage.
+        get_memory_usage_gb(): Returns the memory usage in gigabytes (GB).
+        get_max_memory(): Returns the maximum available memory in gigabytes (GB).
+        get_disk_usage(): Returns the disk usage as a percentage.
+        get_gpu_usage(): Returns the GPU usage as a percentage if an NVIDIA GPU is available, otherwise returns 0.
+        get_disk_free_space(): Returns the available free space on the disk in gigabytes (GB).
+        get_cpu_frequency(): Returns the current frequency of the CPU in megahertz (MHz).
+        get_gpu_frequency(): Returns the current frequency of the GPU in megahertz (MHz) if an NVIDIA GPU is available, otherwise returns 0.
+        get_max_cpu_frequency(): Returns the maximum CPU frequency in megahertz (MHz).
+        get_battery_status(): Retrieves battery status information (if available).
+        get_battery_percent(): Retrieves battery percentage (if available).
 
 
-        Usage:
-            1. Initialize an instance of the SystemInfo class:
-                system_info = SystemInfo()
 
-            2. Access the system information methods:
-                cpu_load = system_info.get_cpu_load()
-                memory_usage = system_info.get_memory_usage()
-                memory_usage_gb = system_info.get_memory_usage_gb()
-                max_memory_gb = system_info.get_max_memory()
-                disk_usage = system_info.get_disk_usage()
-                gpu_usage = system_info.get_gpu_usage()
-                disk_free_space = system_info.get_disk_free_space()
-                cpu_frequency = system_info.get_cpu_frequency()
-                gpu_frequency = system_info.get_gpu_frequency()
-                max_cpu_frequency = system_info.get_max_cpu_frequency()
-                battery_status = system_info.get_battery_status()
-                battery_percent = system_info.get_battery_percent()
 
-        Notes:
-            - The SystemInfo class depends on the psutil and pynvml modules.
-            - The pynvml module is used for GPU information and requires an NVIDIA GPU and the appropriate drivers to be installed.
-            - The CPU load is provided as a percentage for each CPU core.
-            - Memory usage and disk usage are reported as percentages.
-            - Memory usage is also reported in gigabytes (GB).
-            - Disk free space is reported in gigabytes (GB).
-            - CPU and GPU frequencies are reported in megahertz (MHz).
-            - Battery status and percentage are reported if supported by the system. Otherwise, None is returned.
+
+    Usage:
+        1. Initialize an instance of the SystemInfo class:
+            system_info = SystemInfo()
+
+        2. Access the system information methods:
+            cpu_load = system_info.get_cpu_load()
+            memory_usage = system_info.get_memory_usage()
+            memory_usage_gb = system_info.get_memory_usage_gb()
+            max_memory_gb = system_info.get_max_memory()
+            disk_usage = system_info.get_disk_usage()
+            gpu_usage = system_info.get_gpu_usage()
+            disk_free_space = system_info.get_disk_free_space()
+            cpu_frequency = system_info.get_cpu_frequency()
+            gpu_frequency = system_info.get_gpu_frequency()
+            max_cpu_frequency = system_info.get_max_cpu_frequency()
+            battery_status = system_info.get_battery_status()
+            battery_percent = system_info.get_battery_percent()
+
+    Notes:
+        - The SystemInfo class depends on the psutil and pynvml modules.
+        - The pynvml module is used for GPU information and requires an NVIDIA GPU and the appropriate drivers to be installed.
+        - The CPU load is provided as a percentage for each CPU core.
+        - Memory usage and disk usage are reported as percentages.
+        - Memory usage is also reported in gigabytes (GB).
+        - Disk free space is reported in gigabytes (GB).
+        - CPU and GPU frequencies are reported in megahertz (MHz).
+        - Battery status and percentage are reported if supported by the system. Otherwise, None is returned.
     """
 
     def __init__(self):
