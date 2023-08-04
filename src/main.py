@@ -1,8 +1,9 @@
 import sys
 import platform
 import os
-from system.checkers import nvidia_checker
 
+from system.checkers import nvidia_checker
+from interfaces import gui, console, greeting
 from args import HELP_ARGS, GUI_ARGS, CONSOLE_ARGS
 
 
@@ -69,8 +70,6 @@ def main() -> None:
         print("This program is intended for Linux and is not supported on Windows.")
         sys.exit(1)
     else:
-        from interfaces import gui, console, greeting
-
         if not nvidia_checker.CheckNvidia.is_nvidia_gpu_present:
             print(
                 "\nThe full functionality of the program can be obtained only with an Nvidia video card."
