@@ -120,3 +120,6 @@ Alternatively, you can use the long version:
 python3 main.py --console
 ```    
 
+
+sudo apt-get install scrot
+
