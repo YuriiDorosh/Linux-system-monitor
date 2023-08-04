@@ -72,14 +72,14 @@ class SystemInterface:
             )
 
         progress_bars = (
-                [f"CPU{i + 1}: {load}%" for i, load in enumerate(cpu_load)]
-                + gpu_bars
-                + [
-                    f"CPU Frequency: \n {round(cpu_frequency, 2)} MHz / {max_cpu_frequency} MHz",
-                    f"RAM: {memory_usage}% ({round(memory_usage_gb, 2)} / {round(max_memory, 2)} GB)",
-                    f"Disk: {disk_usage}%",
-                    f"Disk Free Space: {disk_free_space:.2f} GB",
-                ]
+            [f"CPU{i + 1}: {load}%" for i, load in enumerate(cpu_load)]
+            + gpu_bars
+            + [
+                f"CPU Frequency: \n {round(cpu_frequency, 2)} MHz / {max_cpu_frequency} MHz",
+                f"RAM: {memory_usage}% ({round(memory_usage_gb, 2)} / {round(max_memory, 2)} GB)",
+                f"Disk: {disk_usage}%",
+                f"Disk Free Space: {disk_free_space:.2f} GB",
+            ]
         )
 
         if battery_status is not None:

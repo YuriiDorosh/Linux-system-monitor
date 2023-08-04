@@ -6,8 +6,10 @@ import os
 class Screenshot:
     def __init__(self):
         # Determine the path for the 'screenshots' directory relative to the current file's location
-        base_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-        self.save_dir = os.path.join(base_dir, 'screenshots')
+        base_dir = os.path.dirname(
+            os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        )
+        self.save_dir = os.path.join(base_dir, "screenshots")
 
         # Create the directory if it doesn't exist
         os.makedirs(self.save_dir, exist_ok=True)

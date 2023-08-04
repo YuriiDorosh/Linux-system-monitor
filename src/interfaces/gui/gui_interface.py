@@ -5,7 +5,8 @@ from processes.screenshot import Screenshot
 from settings import KeyBindings
 import logging
 
-logging.basicConfig(filename='screenshot.log', level=logging.INFO)
+logging.basicConfig(filename="screenshot.log", level=logging.INFO)
+
 
 class GuiInterface:
     def __init__(self):
@@ -38,9 +39,15 @@ class GuiInterface:
 
         self.tools_menu = tk.Menu(self.menu, tearoff=False)
         self.tools_menu.add_command(label="Toggle Topmost", command=self.toggle_topmost)
-        self.tools_menu.add_command(label="Start Recording", command=self.toggle_recording)
-        self.tools_menu.add_command(label="Show Less/Show More", command=self.toggle_minimalize)
-        self.tools_menu.add_command(label="Take Screenshot", command=self.take_screenshot)
+        self.tools_menu.add_command(
+            label="Start Recording", command=self.toggle_recording
+        )
+        self.tools_menu.add_command(
+            label="Show Less/Show More", command=self.toggle_minimalize
+        )
+        self.tools_menu.add_command(
+            label="Take Screenshot", command=self.take_screenshot
+        )
         self.menu.add_cascade(label="Tools", menu=self.tools_menu)
 
     def create_bindings(self):
@@ -76,14 +83,16 @@ class GuiInterface:
 
     def take_screenshot(self, event=None):
         self.screenshot.take()
-        logging.info('Screenshot taken.')
+        logging.info("Screenshot taken.")
 
     def update_gui(self):
         if self.minimalize:
             cpu_load = self.extended_system_interface.get_average_cpu_load()
             gpu_usage = self.extended_system_interface.get_gpu_usage_percentage()
             ram_usage = self.extended_system_interface.get_memory_usage_gb()
-            text = f"CPU Load: {cpu_load}\nGPU Usage: {gpu_usage}\nRAM Usage: {ram_usage}"
+            text = (
+                f"CPU Load: {cpu_load}\nGPU Usage: {gpu_usage}\nRAM Usage: {ram_usage}"
+            )
         else:
             progress_bars = self.system_interface.get_progress_bars()
             text = "\n".join(progress_bars) + "\n"
