@@ -1,6 +1,5 @@
 import tkinter as tk
 
-
 from .screen_recording import record, stop_recording
 
 from system.system_interface import SystemInterface, ExtendedSystemInterface
@@ -80,9 +79,8 @@ class GuiInterface:
             self.root.after(1000, self.update_gui)
         else:
             progress_bars = self.system_interface.get_progress_bars()
-            disk_info = self.system_interface.get_disk_info()
 
-            text = "\n".join(progress_bars) + "\n" + disk_info
+            text = "\n".join(progress_bars) + "\n"
             self.label.config(text=text)
 
             self.root.after(1000, self.update_gui)
