@@ -1,27 +1,19 @@
 import sys
 import platform
 import os
+from system.checkers import nvidia_checker
 
 
-def check_nvidia_gpu():
-    import pynvml
-
-    """
-    Checks the presence of an NVIDIA graphics card on the system.
-
-    This function uses the pynvml library to check for the presence of NVIDIA GPUs on the system.
-
-    Returns:
-        bool: True if an NVIDIA graphics card is present, otherwise False.
-    """
-    try:
-        pynvml.nvmlInit()
-        device_count = pynvml.nvmlDeviceGetCount()
-        pynvml.nvmlShutdown()
-        return device_count > 0
-    except pynvml.NVMLError as err:
-        print(f"NVIDIA video card verification error: {err}\n")
-        return False
+def ask_user_to_continue():
+    while True:
+        user_input = input("(C)ontinue/(E)xit: ")
+        if user_input.lower() == "c" or user_input.lower() == "continue":
+            return True
+        if user_input.lower() == "e" or user_input.lower() == "exit":
+            return False
+        else:
+            print("\nPlease, write 'C' or 'continue' if You want to run the program\n"
+                  "and 'E' or 'exit' for cancel action\n")
 
 
 def get_help_text():
@@ -69,24 +61,26 @@ def main():
     else:
         from interfaces import gui, console, greeting
 
-        if not check_nvidia_gpu():
+        if not nvidia_checker.CheckNvidia.is_nvidia_gpu_present:
             print(
-                "This program works only with NVIDIA video cards."
+                # "This program works only with NVIDIA video cards."
+                "\nThe full functionality of the program can be obtained only with an Nvidia video card."
                 "\nIf you have an NVIDIA graphics card, check if the drivers are installed."
                 "\nTry(Ubuntu): sudo ubuntu-drivers autoinstall"
+                "\n"
             )
-            sys.exit(1)
+            if not ask_user_to_continue():
+                sys.exit(0)
+        if len(sys.argv) > 1:
+            if sys.argv[1] == "--gui" or sys.argv[1] == "-g":
+                gui_interface = gui.gui_interface.GuiInterface()
+                gui_interface.run()
+            elif sys.argv[1] == "--console" or sys.argv[1] == "-c":
+                console_interface = console.console_interface.ConsoleInterface()
+                console_interface.run()
         else:
-            if len(sys.argv) > 1:
-                if sys.argv[1] == "--gui" or sys.argv[1] == "-g":
-                    gui_interface = gui.gui_interface.GuiInterface()
-                    gui_interface.run()
-                elif sys.argv[1] == "--console" or sys.argv[1] == "-c":
-                    console_interface = console.console_interface.ConsoleInterface()
-                    console_interface.run()
-            else:
-                greeting_window = greeting.window.MainWindow()
-                greeting_window.run()
+            greeting_window = greeting.window.MainWindow()
+            greeting_window.run()
 
 
 if __name__ == "__main__":
