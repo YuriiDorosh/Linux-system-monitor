@@ -9,6 +9,16 @@ logging.basicConfig(level=logging.INFO)
 
 
 class ScreenRecorder:
+    """
+        A class that provides methods to start and stop a screen recording.
+
+        Attributes:
+            process (subprocess.Popen): The process running the screen recording.
+
+        Methods:
+            start() -> None: Starts the screen recording.
+            stop() -> None: Stops the screen recording.
+        """
     def __init__(self):
         self.process = None
 
@@ -28,6 +38,9 @@ class ScreenRecorder:
         ]
 
     def start(self):
+        """
+        Starts the screen recording and saves the output to a video file.
+        """
         now = datetime.datetime.now()
         timestamp = now.strftime("%Y-%m-%d_%H-%M-%S")
         filename = f"output_{timestamp}.{settings.ScreenRecording.video_extension}"
@@ -51,7 +64,9 @@ class ScreenRecorder:
         logging.info("Recording process started.")
 
     def stop(self):
-        """Stop the recording process."""
+        """
+        Stops the screen recording.
+        """
         try:
             if self.process:
                 self.process.stdin.write("q")
@@ -63,3 +78,4 @@ class ScreenRecorder:
                 raise
         finally:
             self.process = None
+
