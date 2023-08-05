@@ -33,6 +33,7 @@ The main purpose of this program is to assist users in identifying issues and an
 Before using the tool, ensure you have the following dependencies installed:
 
 - `ffmpeg`
+- `scrot`
 - `git`
 - `python3`
 - `pip3`
@@ -46,23 +47,27 @@ Before using the tool, ensure you have the following dependencies installed:
 
     ```bash
    sudo apt install ffmpeg
+3. Install scrot:
+
+   ```bash
+   sudo apt-get install scrot
    
-3. Clone this repository:
+4. Clone this repository:
 
     ```bash
    git clone https://github.com/YuriiDorosh/Linux-system-monitor.git
 
-4. Set up a virtual environment:
+5. Set up a virtual environment:
 
     ```bash
    python3 -m venv env
 
-5. Activate the virtual environment:
+6. Activate the virtual environment:
     
     ```bash
    source env/bin/activate
    
-6. Install required Python packages:
+7. Install required Python packages:
 
     ```bash
    pip3 install -r requirements.txt
@@ -121,5 +126,5 @@ python3 main.py --console
 ```    
 
 
-sudo apt-get install scrot
+
 
