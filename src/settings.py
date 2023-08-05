@@ -44,7 +44,7 @@ class KeyBindings:
     screenshot = "<Control-s>"
 
 
-def load_settings_from_json(file_path):
+def load_settings_from_json(file_path: str) -> None:
     """
     Load settings_interface from a specified JSON file.
 
