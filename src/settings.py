@@ -3,7 +3,7 @@ import json
 
 class SystemInfo:
     """
-    A class for handling system information settings.
+    A class for handling system information settings_interface.
 
     Attributes:
         cpu_percent_interval (float): Interval for measuring CPU load in seconds. Default value is 0.1.
@@ -14,7 +14,7 @@ class SystemInfo:
 
 class ScreenRecording:
     """
-    A class for handling screen recording settings.
+    A class for handling screen recording settings_interface.
 
     Attributes:
         video_extension (str): Video extension for recording. Default value is "mp4".
@@ -29,7 +29,7 @@ class ScreenRecording:
 
 class KeyBindings:
     """
-    A class for handling key bindings settings.
+    A class for handling key bindings settings_interface.
 
     Attributes:
         topmost (str): Key binding for "topmost" action. Default value is "<Control-t>".
@@ -46,12 +46,12 @@ class KeyBindings:
 
 def load_settings_from_json(file_path):
     """
-    Load settings from a specified JSON file.
+    Load settings_interface from a specified JSON file.
 
-    This function will attempt to load settings from the given JSON file and will set default values if the file or specific fields are not found.
+    This function will attempt to load settings_interface from the given JSON file and will set default values if the file or specific fields are not found.
 
     Args:
-        file_path (str): Path to the JSON file containing settings.
+        file_path (str): Path to the JSON file containing settings_interface.
 
     Raises:
         FileNotFoundError: If the specified JSON file is not found.
@@ -73,8 +73,8 @@ def load_settings_from_json(file_path):
     except FileNotFoundError:
         print(f"Settings file not found: {file_path}")
     except json.JSONDecodeError:
-        print(f"Error decoding JSON in settings file: {file_path}")
+        print(f"Error decoding JSON in settings_interface file: {file_path}")
 
 
-settings_file_path = "settings.json"
+settings_file_path = "data_storage/settings/settings.json"
 load_settings_from_json(settings_file_path)
