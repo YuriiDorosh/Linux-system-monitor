@@ -1,8 +1,9 @@
 import psutil
 import importlib
 
-module_name = "settings_interface"
-settings = importlib.import_module('interfaces.settings_interface.settings_window')
+
+module_name = "settings"
+settings = importlib.import_module(module_name)
 
 
 class Processor:
