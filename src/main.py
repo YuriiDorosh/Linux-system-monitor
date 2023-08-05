@@ -2,9 +2,32 @@ import sys
 import platform
 import os
 
+import data_storage
 from system.checkers import nvidia_checker
-from interfaces import gui, console, greeting
+from interfaces import settings_interface
+from interfaces import gui as gui_interface
+from interfaces import console as console_interface
+from interfaces import greeting as greeting_interface
 from args import HELP_ARGS, GUI_ARGS, CONSOLE_ARGS
+
+CHECK_RESULT = data_storage.settings.settings_analyzer.check_settings_file()
+
+
+def json_status() -> bool:
+    if CHECK_RESULT:
+        while True:
+            user_input = input("Default settings detected. Would you like to change them? (Y)es/(N)o: ")
+            if user_input.lower() in ["y", "yes"]:
+                settings_win = settings_interface.settings_window.SettingsWindow()
+                settings_win.run()
+                return True
+            elif user_input.lower() in ["n", "no"]:
+                return True
+            else:
+                print(
+                    "\nPlease, write 'Y' or 'yes' if you want to open the settings\n"
+                    "and 'N' or 'no' to cancel the action.\n"
+                )
 
 
 def ask_user_to_continue() -> bool:
@@ -79,16 +102,17 @@ def main() -> None:
             )
             if not ask_user_to_continue():
                 sys.exit(0)
-        if len(sys.argv) > 1:
-            if any(arg in sys.argv for arg in GUI_ARGS):
-                gui_interface = gui.gui_interface.GuiInterface()
-                gui_interface.run()
-            elif any(arg in sys.argv for arg in CONSOLE_ARGS):
-                console_interface = console.console_interface.ConsoleInterface()
-                console_interface.run()
-        else:
-            greeting_window = greeting.window.MainWindow()
-            greeting_window.run()
+        if json_status():
+            if len(sys.argv) > 1:
+                if any(arg in sys.argv for arg in GUI_ARGS):
+                    gui = gui_interface.gui_interface.GuiInterface()
+                    gui.run()
+                elif any(arg in sys.argv for arg in CONSOLE_ARGS):
+                    console= console_interface.console_interface.ConsoleInterface()
+                    console.run()
+            else:
+                greeting = greeting_interface.window.MainWindow()
+                greeting.run()
 
 
 if __name__ == "__main__":
