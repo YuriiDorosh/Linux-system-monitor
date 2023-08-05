@@ -81,6 +81,19 @@ class ScreenRecording:
 
 
 class KeyBindings:
+    """
+    A class representing key bindings for various actions in the application.
+
+    Attributes:
+        topmost (str): The key binding to toggle the topmost window property. Default is "<Control-t>".
+        start_recording (str): The key binding to start screen recording. Default is "<Control-r>".
+        minimalize (str): The key binding to minimize the window. Default is "<Control-m>".
+        screenshot (str): The key binding to take a screenshot. Default is "<Control-s>".
+
+    Notes:
+        - You can modify the key bindings by changing the value of the corresponding attributes.
+        - Key bindings must be specified in a format recognized by the Tkinter library.
+    """
     topmost = "<Control-t>"
     start_recording = "<Control-r>"
     minimalize = "<Control-m>"
