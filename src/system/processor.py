@@ -1,8 +1,8 @@
 import psutil
 import importlib
 
-module_name = "settings"
-settings = importlib.import_module(module_name)
+module_name = "settings_interface"
+settings = importlib.import_module('interfaces.settings_interface.settings_window')
 
 
 class Processor:
@@ -10,7 +10,7 @@ class Processor:
     A class that provides methods to retrieve CPU-related information.
 
     Attributes:
-        system_info (settings.SystemInfo): An instance of the SystemInfo class for retrieving system information.
+        system_info (settings_interface.SystemInfo): An instance of the SystemInfo class for retrieving system information.
 
     Methods:
         get_cpu_load() -> List[float]: Returns the CPU load as a percentage for each CPU core.
@@ -29,7 +29,7 @@ class Processor:
             processor.check_info()
 
     Notes:
-        - The Processor class depends on the settings module for system information.
+        - The Processor class depends on the settings_interface module for system information.
     """
 
     def __init__(self):
