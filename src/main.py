@@ -8,7 +8,7 @@ from interfaces import settings_interface
 from interfaces import gui as gui_interface
 from interfaces import console as console_interface
 from interfaces import greeting as greeting_interface
-from args import HELP_ARGS, GUI_ARGS, CONSOLE_ARGS
+from args import HELP_ARGS, GUI_ARGS, CONSOLE_ARGS, SETTINGS_ARGS
 
 CHECK_RESULT = data_storage.settings.settings_analyzer.check_settings_file()
 
@@ -108,8 +108,11 @@ def main() -> None:
                     gui = gui_interface.gui_interface.GuiInterface()
                     gui.run()
                 elif any(arg in sys.argv for arg in CONSOLE_ARGS):
-                    console= console_interface.console_interface.ConsoleInterface()
+                    console = console_interface.console_interface.ConsoleInterface()
                     console.run()
+                elif any(arg in sys.argv for arg in SETTINGS_ARGS):
+                    settings = settings_interface.settings_window.SettingsWindow()
+                    settings.run()
             else:
                 greeting = greeting_interface.window.MainWindow()
                 greeting.run()
