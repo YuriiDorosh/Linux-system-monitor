@@ -21,8 +21,15 @@ class Screenshot:
         # Define the path where the screenshot will be saved
         screenshot_path = os.path.join(self.save_dir, screenshot_name)
 
-        # Capture the screenshot
-        screenshot = pyautogui.screenshot()
+        try:
+            # Capture the screenshot
+            screenshot = pyautogui.screenshot()
 
-        # Save the screenshot
-        screenshot.save(screenshot_path)
+            # Save the screenshot
+            screenshot.save(screenshot_path)
+
+            return screenshot_path
+
+        except Exception as e:
+            print(f"Failed to capture and save screenshot. Error: {e}")
+            return None
