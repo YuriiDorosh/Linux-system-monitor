@@ -14,9 +14,20 @@ CHECK_RESULT = data_storage.settings.settings_analyzer.check_settings_file()
 
 
 def json_status() -> bool:
+    """
+    Asks the user whether to continue or exit the program.
+
+    Continuation options are 'C' or 'continue', and exit options are 'E' or 'exit'.
+    The check is case-insensitive.
+
+    Returns:
+        bool: True if the user chooses to continue, False if the user chooses to exit.
+    """
     if CHECK_RESULT:
         while True:
-            user_input = input("Default settings detected. Would you like to change them? (Y)es/(N)o: ")
+            user_input = input(
+                "Default settings detected. Would you like to change them? (Y)es/(N)o: "
+            )
             if user_input.lower() in ["y", "yes"]:
                 settings_win = settings_interface.settings_window.SettingsWindow()
                 settings_win.run()
@@ -60,7 +71,7 @@ def get_help_text() -> str:
     Returns:
         str: The content of the 'help.txt' file, or a message stating that the file is not found.
     """
-    help_file_path = os.path.join(os.path.dirname(__file__), "..", "help.txt")
+    help_file_path: str = os.path.join(os.path.dirname(__file__), "..", "help.txt")
     if os.path.isfile(help_file_path):
         with open(help_file_path, "r") as file:
             return file.read()
@@ -75,13 +86,13 @@ def main() -> None:
     It checks the operating system and the presence of an NVIDIA graphics card,
     then launches the appropriate interface or displays relevant messages.
 
-    This program supports running in Linux environments with NVIDIA graphics cards.
-
     Usage:
         To run the GUI version: python(3) main.py --gui or python(3) main.py -g
         To run the console version: python(3) main.py --console or python(3) main.py -c
         To display this help message: python(3) main.py --help or python(3) main.py -h
+        To display the settings interface: python(3) main.py --settings or python(3) main.py -s
     """
+
     if any(arg in sys.argv for arg in HELP_ARGS):
         print(main.__doc__)
         help_text = get_help_text()
