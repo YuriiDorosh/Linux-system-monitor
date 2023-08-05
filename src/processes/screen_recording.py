@@ -10,15 +10,16 @@ logging.basicConfig(level=logging.INFO)
 
 class ScreenRecorder:
     """
-        A class that provides methods to start and stop a screen recording.
+    A class that provides methods to start and stop a screen recording.
 
-        Attributes:
-            process (subprocess.Popen): The process running the screen recording.
+    Attributes:
+        process (subprocess.Popen): The process running the screen recording.
 
-        Methods:
-            start() -> None: Starts the screen recording.
-            stop() -> None: Stops the screen recording.
-        """
+    Methods:
+        start() -> None: Starts the screen recording.
+        stop() -> None: Stops the screen recording.
+    """
+
     def __init__(self):
         self.process = None
 
@@ -78,4 +79,3 @@ class ScreenRecorder:
                 raise
         finally:
             self.process = None
-

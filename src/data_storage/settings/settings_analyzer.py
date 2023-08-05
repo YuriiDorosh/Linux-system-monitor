@@ -36,17 +36,17 @@ def check_settings_file():
     }
 
     if not os.path.isfile(settings_path):
-        with open(settings_path, 'w') as file:
+        with open(settings_path, "w") as file:
             json.dump(default_settings, file)
         return False
 
     try:
-        with open(settings_path, 'r') as file:
+        with open(settings_path, "r") as file:
             settings = json.load(file)
             if settings == default_settings:
                 return True
     except json.JSONDecodeError:
-        with open(settings_path, 'w') as file:
+        with open(settings_path, "w") as file:
             json.dump(default_settings, file)
         return False
 

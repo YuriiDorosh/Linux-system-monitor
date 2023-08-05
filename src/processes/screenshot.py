@@ -55,4 +55,3 @@ class Screenshot:
         except Exception as e:
             print(f"Failed to capture and save screenshot. Error: {e}")
             return None
-
