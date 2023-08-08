@@ -2,11 +2,12 @@
 
 # Linux System Monitor #
 
+![picture alt](src/images/readme/main_page.png)
+
 </div>
 
 # Project description
 
-![picture alt](src/images/readme/main_page.png)
 
 **Linux System Monitor** is a comprehensive monitoring tool tailored for Linux systems. It effortlessly bridges the gap between novice users and system administrators by providing an intuitive interface coupled with powerful system analytics. 
 
