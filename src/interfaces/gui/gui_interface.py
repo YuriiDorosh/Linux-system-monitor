@@ -121,7 +121,7 @@ class GuiInterface:
             gpu_usage = self.extended_system_interface.get_gpu_usage_percentage()
             ram_usage = self.extended_system_interface.get_memory_usage_gb()
             text = (
-                f"CPU Load: {cpu_load}\nGPU Usage: {gpu_usage}\nRAM Usage: {ram_usage}"
+                f"{cpu_load}\n{gpu_usage}\n{ram_usage}"
             )
         else:
             progress_bars = self.system_interface.get_progress_bars()
