@@ -27,13 +27,19 @@ class CheckNvidia:
         """
         Initializes the CheckNvidia class and initializes the pynvml library.
         """
-        pynvml.nvmlInit()
+        try:
+            pynvml.nvmlInit()
+        except pynvml.nvml.NVMLError_LibraryNotFound:
+            print("NVML library not founded")
+            self.nvidia_present = False
+            return
 
     def __del__(self):
         """
         Shuts down the pynvml library when the instance is destroyed.
         """
-        pynvml.nvmlShutdown()
+        if self.nvidia_present:
+            pynvml.nvmlShutdown()
 
     @staticmethod
     def is_nvidia_gpu_present() -> bool:
@@ -46,6 +52,10 @@ class CheckNvidia:
         try:
             device_count = pynvml.nvmlDeviceGetCount()
             return device_count > 0
+        except pynvml.NVMLError_LibraryNotFound:
+            print("\nThe NVIDIA System Management Interface library (libnvidia-ml.so) was not found."
+                  "\nPlease install the appropriate NVIDIA drivers for your GPU.\n")
+            sys.exit(1)
         except pynvml.NVMLError as err:
             print(f"NVIDIA video card verification error: {err}\n")
             return False
