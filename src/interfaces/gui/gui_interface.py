@@ -130,9 +130,20 @@ class GuiInterface:
         self.label.config(text=text)
         self.root.after(1000, self.update_gui)
 
+    def stop_update(self):
+        """Stops the scheduled GUI updates."""
+        if hasattr(self, 'after_id'):
+            self.root.after_cancel(self.after_id)
+
+    def on_close(self):
+        """Called when the GUI window is closed."""
+        self.stop_update()
+        self.root.destroy()
+
     def run(self) -> None:
         """
         Start the Tkinter event loop to run the application.
         """
         self.update_gui()
+        self.root.protocol("WM_DELETE_WINDOW", self.on_close)
         self.root.mainloop()

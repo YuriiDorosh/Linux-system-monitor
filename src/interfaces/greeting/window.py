@@ -67,9 +67,10 @@ class MainWindow(Ctk.CTk):
     def start_gui(self):
         """Starts the GUI monitor and closes the current window."""
         gui_interface = gui.gui_interface.GuiInterface()
+        gui_interface.run()
         self.withdraw()
         self.destroy()
-        gui_interface.run()
+
 
     def start_console(self):
         """Starts the console monitor and closes the current window."""
