@@ -27,6 +27,7 @@ class CheckNvidia:
         """
         Initializes the CheckNvidia class and initializes the pynvml library.
         """
+        self.nvidia_present = False
         try:
             pynvml.nvmlInit()
         except pynvml.nvml.NVMLError_LibraryNotFound:
