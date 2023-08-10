@@ -104,7 +104,7 @@ def main() -> None:
         print("This program is intended for Linux and is not supported on Windows.")
         sys.exit(1)
     else:
-        if not nvidia_checker.CheckNvidia.is_nvidia_gpu_present:
+        if not nvidia_checker.CheckNvidia().is_nvidia_gpu_present():
             print(
                 "\nThe full functionality of the program can be obtained only with an Nvidia video card."
                 "\nIf you have an NVIDIA graphics card, check if the drivers are installed."
