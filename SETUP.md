@@ -10,6 +10,7 @@ Before using the Linux System Monitor, ensure you have the following dependencie
 - `scrot`
 - `git`
 - `python3`
+- `python3-tk`
 - `pip3`
 
  Update the package list:
@@ -17,7 +18,13 @@ Before using the Linux System Monitor, ensure you have the following dependencie
 ```bash
 sudo apt update
 ```
-     
+
+ Install Tkinter:
+ 
+```bash
+sudo apt install python3-tk
+```
+
  Install ffmpeg:
 
 ```bash
