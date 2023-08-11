@@ -1,53 +1,48 @@
 import json
 import os
+from typing import NamedTuple
 
 
-def check_settings_file():
-    """
-    Checks if a settings file exists, validates its contents and creates a new settings file with
-    default values if necessary.
+class SettingsStatus(NamedTuple):
+    exists: bool
+    status: str  # Could be "valid", "default", "corrupt"
 
-    This function first checks if a settings file exists at the specified location. If the file
-    doesn't exist, a new file with default settings is created.
 
-    Then, it attempts to open and load the settings file. If the contents of the file match the
-    default settings, the function returns True.
+SETTINGS_PATH = "data_storage/settings/settings.json"
+DEFAULT_SETTINGS = {
+    "cpu_percent_interval": 0.1,
+    "video_format": "mp4",
+    "fps": 30,
+    "monitor_resolution": "1920x1080",
+    "topmost": "<Control-t>",
+    "start_recording": "<Control-r>",
+    "minimalize": "<Control-m>",
+    "screenshot": "<Control-s>",
+}
 
-    If the file contains invalid JSON data, a JSONDecodeError is thrown. The except clause catches
-    this exception, writes the default settings to the file, and returns False.
 
-    Finally, if the file exists and contains valid JSON that doesn't match the default settings,
-    the function returns False.
+def write_default_settings():
+    with open(SETTINGS_PATH, "w") as file:
+        json.dump(DEFAULT_SETTINGS, file)
 
-    Returns:
-        bool: True if a settings file exists and contains the default settings, False otherwise.
-    """
 
-    settings_path = "data_storage/settings/settings.json"
-    default_settings = {
-        "cpu_percent_interval": 0.1,
-        "video_format": "mp4",
-        "fps": 30,
-        "monitor_resolution": "1920x1080",
-        "topmost": "<Control-t>",
-        "start_recording": "<Control-r>",
-        "minimalize": "<Control-m>",
-        "screenshot": "<Control-s>",
-    }
-
-    if not os.path.isfile(settings_path):
-        with open(settings_path, "w") as file:
-            json.dump(default_settings, file)
-        return False
+def check_settings_file() -> SettingsStatus:
+    if not os.path.isfile(SETTINGS_PATH):
+        write_default_settings()
+        return SettingsStatus(exists=False, status="default")
 
     try:
-        with open(settings_path, "r") as file:
+        with open(SETTINGS_PATH, "r") as file:
             settings = json.load(file)
-            if settings == default_settings:
-                return True
+            if settings == DEFAULT_SETTINGS:
+                return SettingsStatus(exists=True, status="default")
+            else:
+                return SettingsStatus(exists=True, status="valid")
     except json.JSONDecodeError:
-        with open(settings_path, "w") as file:
-            json.dump(default_settings, file)
-        return False
+        write_default_settings()
+        return SettingsStatus(exists=True, status="corrupt")
 
-    return False
+
+# Testing the function
+result = check_settings_file()
+print(result.exists, result.status)
