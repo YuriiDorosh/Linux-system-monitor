@@ -11,6 +11,9 @@
 # Old pictures which used for README
 src/images/readme/old
 
+# Copy of settings(for testing)
+src/data_storage/settings/settings (copy).json
+
 .idea
 
 ### Python ###
