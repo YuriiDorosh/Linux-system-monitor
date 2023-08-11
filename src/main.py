@@ -30,11 +30,11 @@ def json_status() -> bool:
     check_result = data_storage.settings.settings_analyzer.check_settings_file()
     logging.debug("Settings file status: %s", check_result)
 
-    if check_result == "corrupt":
+    if check_result.status == "corrupt":
         print("Settings file was corrupted and restored to default values.")
         return True
 
-    elif check_result == "default":
+    elif check_result.status == "default":
         while True:
             user_input = input("Default settings detected. Would you like to change them? (Y)es/(N)o: ")
             if user_input.lower() in ["y", "yes"]:
