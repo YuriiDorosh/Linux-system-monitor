@@ -112,10 +112,23 @@ class GuiInterface:
         self.screenshot.take()
         logging.info("Screenshot taken.")
 
+    def is_alive(self) -> bool:
+        """
+        Check if the root window is still alive.
+        """
+        try:
+            self.root.update()
+            return True
+        except tk.TclError:
+            return False
+
     def update_gui(self) -> None:
         """
         Update the system information displayed in the application window every second.
         """
+        if not self.is_alive():
+            return
+
         if self.minimalize:
             cpu_load = self.extended_system_interface.get_average_cpu_load()
             gpu_usage = self.extended_system_interface.get_gpu_usage_percentage()
@@ -128,7 +141,8 @@ class GuiInterface:
             text = "\n".join(progress_bars) + "\n"
 
         self.label.config(text=text)
-        self.root.after(1000, self.update_gui)
+        self.after_id = self.root.after(1000, self.update_gui)
+
 
     def stop_update(self):
         """Stops the scheduled GUI updates."""
@@ -138,12 +152,14 @@ class GuiInterface:
     def on_close(self):
         """Called when the GUI window is closed."""
         self.stop_update()
+        self.root.after_cancel(self.after_id)
         self.root.destroy()
 
     def run(self) -> None:
         """
         Start the Tkinter event loop to run the application.
         """
-        self.update_gui()
+        self.after_id = self.root.after(1000, self.update_gui)
         self.root.protocol("WM_DELETE_WINDOW", self.on_close)
         self.root.mainloop()
+        self.root.quit()
