@@ -11,10 +11,9 @@ from interfaces import greeting as greeting_interface
 from args import HELP_ARGS, GUI_ARGS, CONSOLE_ARGS, SETTINGS_ARGS
 import logging
 
-logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
-
-
-
+logging.basicConfig(
+    level=logging.DEBUG, format="%(asctime)s - %(levelname)s - %(message)s"
+)
 
 
 def json_status() -> bool:
@@ -36,7 +35,9 @@ def json_status() -> bool:
 
     elif check_result.status == "default":
         while True:
-            user_input = input("Default settings detected. Would you like to change them? (Y)es/(N)o: ")
+            user_input = input(
+                "Default settings detected. Would you like to change them? (Y)es/(N)o: "
+            )
             if user_input.lower() in ["y", "yes"]:
                 settings_win = settings_interface.settings_window.SettingsWindow()
                 settings_win.run()
@@ -50,7 +51,6 @@ def json_status() -> bool:
                 )
     else:
         return True
-
 
 
 def ask_user_to_continue() -> bool:
@@ -114,7 +114,6 @@ def main() -> None:
 
     logging.debug("Starting program...")
 
-
     if platform.system() == "Windows":
         print("This program is intended for Linux and is not supported on Windows.")
         sys.exit(1)
@@ -128,7 +127,6 @@ def main() -> None:
             )
             if not ask_user_to_continue():
                 sys.exit(0)
-
 
         if json_status():
             if len(sys.argv) > 1:
