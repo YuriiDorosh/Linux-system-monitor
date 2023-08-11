@@ -9,8 +9,12 @@ from interfaces import gui as gui_interface
 from interfaces import console as console_interface
 from interfaces import greeting as greeting_interface
 from args import HELP_ARGS, GUI_ARGS, CONSOLE_ARGS, SETTINGS_ARGS
+import logging
 
-CHECK_RESULT = data_storage.settings.settings_analyzer.check_settings_file()
+logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
+
+
+
 
 
 def json_status() -> bool:
@@ -23,11 +27,16 @@ def json_status() -> bool:
     Returns:
         bool: True if the user chooses to continue, False if the user chooses to exit.
     """
-    if CHECK_RESULT:
+    check_result = data_storage.settings.settings_analyzer.check_settings_file()
+    logging.debug("Settings file status: %s", check_result)
+
+    if check_result == "corrupt":
+        print("Settings file was corrupted and restored to default values.")
+        return True
+
+    elif check_result == "default":
         while True:
-            user_input = input(
-                "Default settings detected. Would you like to change them? (Y)es/(N)o: "
-            )
+            user_input = input("Default settings detected. Would you like to change them? (Y)es/(N)o: ")
             if user_input.lower() in ["y", "yes"]:
                 settings_win = settings_interface.settings_window.SettingsWindow()
                 settings_win.run()
@@ -39,6 +48,9 @@ def json_status() -> bool:
                     "\nPlease, write 'Y' or 'yes' if you want to open the settings\n"
                     "and 'N' or 'no' to cancel the action.\n"
                 )
+    else:
+        return True
+
 
 
 def ask_user_to_continue() -> bool:
@@ -100,6 +112,9 @@ def main() -> None:
         print(help_text)
         sys.exit(0)
 
+    logging.debug("Starting program...")
+
+
     if platform.system() == "Windows":
         print("This program is intended for Linux and is not supported on Windows.")
         sys.exit(1)
@@ -113,6 +128,8 @@ def main() -> None:
             )
             if not ask_user_to_continue():
                 sys.exit(0)
+
+
         if json_status():
             if len(sys.argv) > 1:
                 if any(arg in sys.argv for arg in GUI_ARGS):
