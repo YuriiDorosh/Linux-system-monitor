@@ -54,8 +54,10 @@ class CheckNvidia:
             device_count = pynvml.nvmlDeviceGetCount()
             return device_count > 0
         except pynvml.NVMLError_LibraryNotFound:
-            print("\nThe NVIDIA System Management Interface library (libnvidia-ml.so) was not found."
-                  "\nPlease install the appropriate NVIDIA drivers for your GPU.\n")
+            print(
+                "\nThe NVIDIA System Management Interface library (libnvidia-ml.so) was not found."
+                "\nPlease install the appropriate NVIDIA drivers for your GPU.\n"
+            )
             sys.exit(1)
         except pynvml.NVMLError as err:
             print(f"NVIDIA video card verification error: {err}\n")

@@ -133,9 +133,7 @@ class GuiInterface:
             cpu_load = self.extended_system_interface.get_average_cpu_load()
             gpu_usage = self.extended_system_interface.get_gpu_usage_percentage()
             ram_usage = self.extended_system_interface.get_memory_usage_gb()
-            text = (
-                f"{cpu_load}\n{gpu_usage}\n{ram_usage}"
-            )
+            text = f"{cpu_load}\n{gpu_usage}\n{ram_usage}"
         else:
             progress_bars = self.system_interface.get_progress_bars()
             text = "\n".join(progress_bars) + "\n"
@@ -143,10 +141,9 @@ class GuiInterface:
         self.label.config(text=text)
         self.after_id = self.root.after(1000, self.update_gui)
 
-
     def stop_update(self):
         """Stops the scheduled GUI updates."""
-        if hasattr(self, 'after_id'):
+        if hasattr(self, "after_id"):
             self.root.after_cancel(self.after_id)
 
     def on_close(self):

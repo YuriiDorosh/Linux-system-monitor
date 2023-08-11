@@ -71,7 +71,6 @@ class MainWindow(Ctk.CTk):
         self.withdraw()
         self.destroy()
 
-
     def start_console(self):
         """Starts the console monitor and closes the current window."""
         console_interface = console.console_interface.ConsoleInterface()
