@@ -1,56 +1,63 @@
 #!/bin/bash
 
-# Linux System Monitor Build and Run Script
+# Define function to determine the package manager
+determinePackageManager() {
+    if command -v apt > /dev/null; then
+        PKG_MANAGER="apt"
+        UPDATE_CMD="sudo apt update"
+        INSTALL_CMD="sudo apt install -y"
+    elif command -v pacman > /dev/null; then
+        PKG_MANAGER="pacman"
+        UPDATE_CMD="sudo pacman -Syu"
+        INSTALL_CMD="sudo pacman -S --noconfirm"
+    elif command -v yum > /dev/null; then
+        PKG_MANAGER="yum"
+        UPDATE_CMD="sudo yum update -y"
+        INSTALL_CMD="sudo yum install -y"
+    else
+        echo "Unsupported package manager. Exiting."
+        exit 1
+    fi
+}
 
-# Step 1: Install dependencies
-sudo apt update
-sudo apt install -y ffmpeg git python3 python3-pip
+# Update and install packages
+installPackages() {
+    $UPDATE_CMD || true
+    $INSTALL_CMD ffmpeg scrot git python3 python3-tk pip3 || true
+}
 
-# Step 2: Check if the repository is already cloned
-if [ -d "Linux-system-monitor" ]; then
-  echo "The repository has already been cloned, let's proceed to the next steps."
-else
-  # Clone the repository
-  git clone https://github.com/YuriiDorosh/Linux-system-monitor.git
-  # Go to the directory with the application
-  cd Linux-system-monitor/
-fi
+# Clone repository and setup virtual environment
+setupProject() {
+    python3 -m venv env || true
+    source env/bin/activate || true
+    pip3 install -r requirements.txt || true
+}
 
-# Step 3: Create and activate the virtual environment
-python3 -m venv env
-source env/bin/activate
+# Prompt user to run the project
+promptForProjectExecution() {
+    read -p "Would you like to run the project now? [y/n]: " run_now
+    if [[ "$run_now" == "y" ]]; then
+        cd src/ || true
+        echo "How would you like to run the project?"
+        echo "1. Greeting window"
+        echo "2. GUI Version"
+        echo "3. Console version"
+        echo "4. Settings"
+        read -p "Choose a number [1-4]: " choice
+        case $choice in
+            1) python3 main.py ;;
+            2) python3 main.py -g ;;
+            3) python3 main.py -c ;;
+            4) python3 main.py --settings ;;
+            *) echo "Invalid choice. Exiting." ;;
+        esac
+    fi
+}
 
-# Step 4: Install the required Python packages
-pip3 install -r requirements.txt
+# Main execution
+determinePackageManager
+installPackages
+setupProject
+promptForProjectExecution
 
-# Step 5: Launch the project
-cd src/
-
-# Display menu with options
-echo "Select the version to run:"
-echo "1) GUI version"
-echo "2) Console version"
-echo "3) Default version (Greeting window)"
-echo "4) Help - Display project help"
-
-# Read user input for the desired version
-read -p "Enter your choice [1-4]: " choice
-
-# Execute the selected option
-case $choice in
-  1)
-    python3 main.py --gui
-    ;;
-  2)
-    python3 main.py --console
-    ;;
-  3)
-    python3 main.py
-    ;;
-  4)
-    python3 main.py --help
-    ;;
-  *)
-    echo "Invalid choice. Exiting."
-    ;;
-esac
+echo "Script has finished its work. Please ensure all dependencies, packages, etc. are correctly installed."
