@@ -23,7 +23,7 @@ determinePackageManager() {
 # Update and install packages
 installPackages() {
     $UPDATE_CMD || true
-    $INSTALL_CMD ffmpeg scrot git python3 python3-tk pip3 || true
+    $INSTALL_CMD ffmpeg scrot || true
 }
 
 # Clone repository and setup virtual environment
@@ -60,4 +60,4 @@ installPackages
 setupProject
 promptForProjectExecution
 
-echo "Script has finished its work. Please ensure all dependencies, packages, etc. are correctly installed."
+echo "Script has finished its work. Please ensure all dependencies, packages, etc. are correctly installed(sudo pacman -S tk, sudo pacman -S scrot, sudo apt install python3-tk, sudo apt install scrot)."
