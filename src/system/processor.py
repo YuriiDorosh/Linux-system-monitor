@@ -43,9 +43,7 @@ class Processor:
         Returns:
             float: A list of CPU load percentages for each CPU core.
         """
-        return psutil.cpu_percent(
-            interval=self.system_info.cpu_percent_interval, percpu=True
-        )
+        return psutil.cpu_percent(interval=self.system_info.cpu_percent_interval, percpu=True)
 
     def check_info(self) -> None:
         """

@@ -45,15 +45,9 @@ class GuiInterface:
 
         self.tools_menu = tk.Menu(self.menu, tearoff=False)
         self.tools_menu.add_command(label="Toggle Topmost", command=self.toggle_topmost)
-        self.tools_menu.add_command(
-            label="Start Recording", command=self.toggle_recording
-        )
-        self.tools_menu.add_command(
-            label="Show Less/Show More", command=self.toggle_minimalize
-        )
-        self.tools_menu.add_command(
-            label="Take Screenshot", command=self.take_screenshot
-        )
+        self.tools_menu.add_command(label="Start Recording", command=self.toggle_recording)
+        self.tools_menu.add_command(label="Show Less/Show More", command=self.toggle_minimalize)
+        self.tools_menu.add_command(label="Take Screenshot", command=self.take_screenshot)
         self.menu.add_cascade(label="Tools", menu=self.tools_menu)
 
     def create_bindings(self) -> None:

@@ -20,9 +20,7 @@ class SettingsWindow(tk.Tk):
         save_button.pack()
 
         # Create and initialize a DoubleVar for CPU percent interval
-        self.cpu_percent_interval_var = tk.DoubleVar(
-            value=settings.SystemInfo.cpu_percent_interval
-        )
+        self.cpu_percent_interval_var = tk.DoubleVar(value=settings.SystemInfo.cpu_percent_interval)
         ttk.Label(self, text="CPU Percent Interval:").pack()
         ttk.Spinbox(
             self,
@@ -33,9 +31,7 @@ class SettingsWindow(tk.Tk):
         ).pack()
 
         # Create and initialize a StringVar for Video extension
-        self.video_extension_var = tk.StringVar(
-            value=settings.ScreenRecording.video_extension
-        )
+        self.video_extension_var = tk.StringVar(value=settings.ScreenRecording.video_extension)
         ttk.Label(self, text="Video Extension:").pack()
         ttk.Combobox(
             self,
@@ -69,9 +65,7 @@ class SettingsWindow(tk.Tk):
         ).pack()
 
         # Create and initialize a StringVar for Monitor resolution
-        self.monitor_resolution_var = tk.StringVar(
-            value=settings.ScreenRecording.monitor_resolution
-        )
+        self.monitor_resolution_var = tk.StringVar(value=settings.ScreenRecording.monitor_resolution)
         ttk.Label(self, text="Monitor Resolution:").pack()
         ttk.Combobox(
             self,
@@ -91,9 +85,7 @@ class SettingsWindow(tk.Tk):
 
         # Create and initialize StringVars for KeyBindings
         self.topmost_var = tk.StringVar(value=settings.KeyBindings.topmost)
-        self.start_recording_var = tk.StringVar(
-            value=settings.KeyBindings.start_recording
-        )
+        self.start_recording_var = tk.StringVar(value=settings.KeyBindings.start_recording)
         self.minimalize_var = tk.StringVar(value=settings.KeyBindings.minimalize)
         self.screenshot_var = tk.StringVar(value=settings.KeyBindings.screenshot)
 
@@ -111,24 +103,16 @@ class SettingsWindow(tk.Tk):
         ]
 
         ttk.Label(self, text="Topmost Keybinding:").pack()
-        ttk.Combobox(
-            self, values=self.key_bindings_list, textvariable=self.topmost_var
-        ).pack()
+        ttk.Combobox(self, values=self.key_bindings_list, textvariable=self.topmost_var).pack()
 
         ttk.Label(self, text="Start Recording Keybinding:").pack()
-        ttk.Combobox(
-            self, values=self.key_bindings_list, textvariable=self.start_recording_var
-        ).pack()
+        ttk.Combobox(self, values=self.key_bindings_list, textvariable=self.start_recording_var).pack()
 
         ttk.Label(self, text="Minimalize Keybinding:").pack()
-        ttk.Combobox(
-            self, values=self.key_bindings_list, textvariable=self.minimalize_var
-        ).pack()
+        ttk.Combobox(self, values=self.key_bindings_list, textvariable=self.minimalize_var).pack()
 
         ttk.Label(self, text="Screenshot Keybinding:").pack()
-        ttk.Combobox(
-            self, values=self.key_bindings_list, textvariable=self.screenshot_var
-        ).pack()
+        ttk.Combobox(self, values=self.key_bindings_list, textvariable=self.screenshot_var).pack()
 
     def save_settings(self):
         """

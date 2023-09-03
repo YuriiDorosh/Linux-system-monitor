@@ -63,9 +63,7 @@ def load_settings_from_json(file_path: str) -> None:
             SystemInfo.cpu_percent_interval = data.get("cpu_percent_interval", 0.1)
             ScreenRecording.video_extension = data.get("video_format", "mp4")
             ScreenRecording.frame_rate = data.get("fps", 30)
-            ScreenRecording.monitor_resolution = data.get(
-                "monitor_resolution", "1920x1080"
-            )
+            ScreenRecording.monitor_resolution = data.get("monitor_resolution", "1920x1080")
             KeyBindings.topmost = data.get("topmost", "<Control-t>")
             KeyBindings.start_recording = data.get("start_recording", "<Control-r>")
             KeyBindings.minimalize = data.get("minimalize", "<Control-m>")

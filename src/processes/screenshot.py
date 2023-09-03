@@ -19,9 +19,7 @@ class Screenshot:
         Initializes the Screenshot class by setting up the directory to save the screenshots.
         """
         # Determine the path for the 'screenshots' directory relative to the current file's location
-        base_dir = os.path.dirname(
-            os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-        )
+        base_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
         self.save_dir = os.path.join(base_dir, "screenshots")
 
         # Create the directory if it doesn't exist

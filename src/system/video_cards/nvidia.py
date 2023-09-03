@@ -76,9 +76,7 @@ class Nvidia:
             device_name = pynvml.nvmlDeviceGetName(handle)
 
             if "NVIDIA" in device_name:
-                clock_info = pynvml.nvmlDeviceGetClockInfo(
-                    handle, pynvml.NVML_CLOCK_GRAPHICS
-                )
+                clock_info = pynvml.nvmlDeviceGetClockInfo(handle, pynvml.NVML_CLOCK_GRAPHICS)
                 return clock_info / 1000  # Convert to MHz
 
         return 0

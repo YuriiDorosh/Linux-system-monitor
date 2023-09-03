@@ -11,9 +11,7 @@ from interfaces import greeting as greeting_interface
 from args import HELP_ARGS, GUI_ARGS, CONSOLE_ARGS, SETTINGS_ARGS
 import logging
 
-logging.basicConfig(
-    level=logging.DEBUG, format="%(asctime)s - %(levelname)s - %(message)s"
-)
+logging.basicConfig(level=logging.DEBUG, format="%(asctime)s - %(levelname)s - %(message)s")
 
 
 def json_status() -> bool:
@@ -35,9 +33,7 @@ def json_status() -> bool:
 
     elif check_result.status == "default":
         while True:
-            user_input = input(
-                "Default settings detected. Would you like to change them? (Y)es/(N)o: "
-            )
+            user_input = input("Default settings detected. Would you like to change them? (Y)es/(N)o: ")
             if user_input.lower() in ["y", "yes"]:
                 settings_win = settings_interface.settings_window.SettingsWindow()
                 settings_win.run()
