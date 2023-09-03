@@ -34,7 +34,7 @@ class Processor:
         - The Processor class depends on the settings_interface module for system information.
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.system_info = settings.SystemInfo()
 
     def get_cpu_load(self) -> float:
@@ -44,7 +44,7 @@ class Processor:
         Returns:
             float: A list of CPU load percentages for each CPU core.
         """
-        return psutil.cpu_percent(interval=self.system_info.cpu_percent_interval, percpu=True)
+        return float(psutil.cpu_percent(interval=self.system_info.cpu_percent_interval, percpu=True))
 
     def check_info(self) -> None:
         """
@@ -63,7 +63,7 @@ class Processor:
         Returns:
             float: Current frequency of the CPU in megahertz (MHz).
         """
-        return psutil.cpu_freq().current
+        return float(psutil.cpu_freq().current)
 
     @staticmethod
     def get_max_cpu_frequency() -> float:
@@ -73,4 +73,4 @@ class Processor:
         Returns:
             float: Maximum CPU frequency in megahertz (MHz).
         """
-        return psutil.cpu_freq().max
+        return float(psutil.cpu_freq().max)

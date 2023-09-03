@@ -36,7 +36,7 @@ class SystemInterface:
         nvidia_checker (CheckNvidia): An instance of the CheckNvidia class to check NVIDIA GPU presence.
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.processor = Processor()
         self.battery = Battery()
         self.memory = Memory()
@@ -51,7 +51,7 @@ class SystemInterface:
         Returns:
             progress_bars (list): A list of progress bars representing CPU load, memory usage, disk usage, and GPU usage.
         """
-        cpu_load = self.processor.get_cpu_load()
+        cpu_load: List[float] = self.processor.get_cpu_load()
         memory_usage = self.memory.get_memory_usage()
         memory_usage_gb = self.memory.get_memory_usage_gb()
         max_memory = self.memory.get_max_memory()
@@ -116,7 +116,7 @@ class ExtendedSystemInterface(SystemInterface):
         Inherits all attributes from the SystemInterface class.
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__()
 
     def get_average_cpu_load(self) -> str:

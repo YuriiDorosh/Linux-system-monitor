@@ -9,7 +9,7 @@ class SettingsStatus(NamedTuple):
     status: str  # Could be "valid", "default", "corrupt"
 
 
-def write_default_settings():
+def write_default_settings() -> None:
     with open(consts.SETTINGS_PATH, "w") as file:
         json.dump(consts.DEFAULT_SETTINGS, file)
 

@@ -24,7 +24,7 @@ class CheckNvidia:
         - The CheckNvidia class depends on the pynvml module for NVIDIA GPU information.
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         """
         Initializes the CheckNvidia class and initializes the pynvml library.
         """
@@ -36,7 +36,7 @@ class CheckNvidia:
             self.nvidia_present = False
             return
 
-    def __del__(self):
+    def __del__(self) -> None:
         """
         Shuts down the pynvml library when the instance is destroyed.
         """
@@ -53,7 +53,7 @@ class CheckNvidia:
         """
         try:
             device_count = pynvml.nvmlDeviceGetCount()
-            return device_count > 0
+            return bool(device_count > 0)
         except pynvml.NVMLError_LibraryNotFound:
             print(
                 "\nThe NVIDIA System Management Interface library (libnvidia-ml.so) was not found."

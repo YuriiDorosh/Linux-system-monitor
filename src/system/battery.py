@@ -44,7 +44,7 @@ class Battery:
         return None
 
     @staticmethod
-    def get_battery_percent() -> Optional[float]:
+    def get_battery_percent() -> Optional[float] | None:
         """
         Retrieves battery percentage.
 
@@ -59,6 +59,6 @@ class Battery:
         battery = psutil.sensors_battery()
 
         if battery:
-            return battery.percent
+            return float(battery.percent)
 
         return None

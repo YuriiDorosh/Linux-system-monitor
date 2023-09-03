@@ -24,10 +24,10 @@ class Nvidia:
         - The Nvidia class depends on the pynvml module for NVIDIA GPU information.
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         self._pynvml_initialized = False
 
-    def _initialize_pynvml(self):
+    def _initialize_pynvml(self) -> None:
         if not self._pynvml_initialized:
             pynvml.nvmlInit()
             self._pynvml_initialized = True
@@ -54,11 +54,11 @@ class Nvidia:
 
             if "NVIDIA" in device_name:
                 utilization = pynvml.nvmlDeviceGetUtilizationRates(handle)
-                return utilization.gpu
+                return int(utilization.gpu)
 
         return 0
 
-    def get_gpu_frequency(self) -> int:
+    def get_gpu_frequency(self) -> float:
         """
         Returns the current frequency of the GPU if an NVIDIA GPU is available, otherwise returns 0.
 
@@ -80,6 +80,6 @@ class Nvidia:
 
             if "NVIDIA" in device_name:
                 clock_info = pynvml.nvmlDeviceGetClockInfo(handle, pynvml.NVML_CLOCK_GRAPHICS)
-                return clock_info / 1000  # Convert to MHz
+                return float(clock_info / 1000)  # Convert to MHz
 
         return 0

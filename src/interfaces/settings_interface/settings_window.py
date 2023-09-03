@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
 import json
-import settings  # Importing the classes and functions from the settings_interface module
+import settings
 
 
 class SettingsWindow(tk.Tk):
@@ -12,7 +12,7 @@ class SettingsWindow(tk.Tk):
     essentially it is the main window of an application.
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__()
 
         self.title("Settings")
@@ -57,10 +57,10 @@ class SettingsWindow(tk.Tk):
         ttk.Combobox(
             self,
             values=[
-                15,
-                24,
-                30,
-                60,
+                "15",
+                "24",
+                "30",
+                "60",
             ],
             textvariable=self.frame_rate_var,
         ).pack()
@@ -115,7 +115,7 @@ class SettingsWindow(tk.Tk):
         ttk.Label(self, text="Screenshot Keybinding:").pack()
         ttk.Combobox(self, values=self.key_bindings_list, textvariable=self.screenshot_var).pack()
 
-    def save_settings(self):
+    def save_settings(self) -> None:
         """
         This method saves the current settings_interface into a JSON file.
         It's called when the user clicks on the 'Apply' button.
@@ -193,7 +193,7 @@ class SettingsWindow(tk.Tk):
             )
 
     @staticmethod
-    def is_valid_binding(binding):
+    def is_valid_binding(binding: str) -> bool:
         """
         Check if the binding is valid. It must be a single character or a special key combination.
         """
@@ -212,7 +212,7 @@ class SettingsWindow(tk.Tk):
         # Check if binding is a single character or a special key combination
         return len(binding) == 1 or binding in special_keys
 
-    def run(self):
+    def run(self) -> None:
         self.mainloop()
 
 

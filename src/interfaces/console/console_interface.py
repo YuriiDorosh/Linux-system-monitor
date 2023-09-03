@@ -21,7 +21,7 @@ class ConsoleInterface:
             interface.run()
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         """
         Initialize the ConsoleInterface object.
 
@@ -30,7 +30,7 @@ class ConsoleInterface:
         """
         self.system_interface = SystemInterface()
 
-    def update_console(self, stdscr):
+    def update_console(self, stdscr: "curses.window") -> None:
         """
         Update the console interface with system information.
 
@@ -53,7 +53,7 @@ class ConsoleInterface:
 
         stdscr.refresh()
 
-    def run(self):
+    def run(self) -> None:
         """
         Run the console interface.
 

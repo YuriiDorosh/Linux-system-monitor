@@ -14,7 +14,7 @@ class Screenshot:
         take() -> str: Captures the screenshot and returns the screenshot's file path.
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         """
         Initializes the Screenshot class by setting up the directory to save the screenshots.
         """
@@ -28,7 +28,7 @@ class Screenshot:
         except Exception as e:
             print(f"Failed to create directory {self.save_dir}. Error: {e}")
 
-    def take(self) -> str:
+    def take(self) -> str | None:
         """
         Captures the screenshot and saves it to the directory.
 

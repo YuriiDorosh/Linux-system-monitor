@@ -35,7 +35,7 @@ class Disk:
             print(disk_usage)  # Output: 83.7
         """
         disk_usage = psutil.disk_usage("/")
-        return disk_usage.percent
+        return float(disk_usage.percent)
 
     @staticmethod
     def get_disk_free_space() -> float:
@@ -51,4 +51,4 @@ class Disk:
             print(disk_free_space)  # Output: 214.5
         """
         disk_usage = psutil.disk_usage("/")
-        return disk_usage.free / (1024**3)
+        return float(disk_usage.free / (1024**3))

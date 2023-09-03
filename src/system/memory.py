@@ -36,7 +36,7 @@ class Memory:
             memory_usage = memory.get_memory_usage()
             print(memory_usage)  # Output: 65.3
         """
-        return psutil.virtual_memory().percent
+        return float(psutil.virtual_memory().percent)
 
     @staticmethod
     def get_memory_usage_gb() -> float:
@@ -53,7 +53,7 @@ class Memory:
         """
         memory = psutil.virtual_memory()
         memory_gb = memory.used / (1024**3)
-        return memory_gb
+        return float(memory_gb)
 
     @staticmethod
     def get_max_memory() -> float:
@@ -70,4 +70,4 @@ class Memory:
         """
         memory = psutil.virtual_memory()
         max_memory_gb = memory.total / (1024**3)
-        return max_memory_gb
+        return float(max_memory_gb)

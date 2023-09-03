@@ -22,7 +22,7 @@ class MainWindow(Ctk.CTk):
 
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initializes MainWindow with a set layout and features."""
         super().__init__()
 
@@ -64,26 +64,26 @@ class MainWindow(Ctk.CTk):
         )
         self.btn_settings.grid(row=3, column=0, padx=10, pady=10)
 
-    def start_gui(self):
+    def start_gui(self) -> None:
         """Starts the GUI monitor and closes the current window."""
         gui_interface = gui.gui_interface.GuiInterface()
         gui_interface.run()
         self.withdraw()
         self.destroy()
 
-    def start_console(self):
+    def start_console(self) -> None:
         """Starts the console monitor and closes the current window."""
         console_interface = console.console_interface.ConsoleInterface()
         self.destroy()
         console_interface.run()
 
-    def open_settings(self):
+    def open_settings(self) -> None:
         """Opens the settings window and minimizes the current window."""
         settings_window = settings_interface.settings_window.SettingsWindow()
         self.withdraw()
         self.deiconify()
 
-    def run(self):
+    def run(self) -> None:
         """Runs the main loop of the tkinter interface."""
         self.mainloop()
 

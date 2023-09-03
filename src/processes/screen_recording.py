@@ -4,6 +4,7 @@ import os
 import errno
 import logging
 import settings
+from typing import List
 
 logging.basicConfig(level=logging.INFO)
 
@@ -20,10 +21,10 @@ class ScreenRecorder:
         stop() -> None: Stops the screen recording.
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.process = None
 
-    def _get_command(self, display_num, output_path):
+    def _get_command(self, display_num: str, output_path: str) -> List[str]:
         """Return the command to start the recording process."""
         return [
             "ffmpeg",
@@ -38,7 +39,7 @@ class ScreenRecorder:
             output_path,
         ]
 
-    def start(self):
+    def start(self) -> None:
         """
         Starts the screen recording and saves the output to a video file.
         """
@@ -64,7 +65,7 @@ class ScreenRecorder:
         )
         logging.info("Recording process started.")
 
-    def stop(self):
+    def stop(self) -> None:
         """
         Stops the screen recording.
         """

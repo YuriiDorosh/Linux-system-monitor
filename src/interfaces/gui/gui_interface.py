@@ -1,15 +1,17 @@
+from tkinter import Event
 import tkinter as tk
 from processes.screen_recording import ScreenRecorder
 from system.system_interface import SystemInterface, ExtendedSystemInterface
 from processes.screenshot import Screenshot
 from settings import KeyBindings
 import logging
+from typing import Optional
 
 logging.basicConfig(filename="screenshot.log", level=logging.INFO)
 
 
 class GuiInterface:
-    def __init__(self):
+    def __init__(self) -> None:
         """
         Initialize the GUI interface and set up initial configurations.
         """
@@ -59,14 +61,14 @@ class GuiInterface:
         self.root.bind_all(KeyBindings.minimalize, self.toggle_minimalize)
         self.root.bind_all(KeyBindings.screenshot, self.take_screenshot)
 
-    def toggle_topmost(self, event=None) -> None:
+    def toggle_topmost(self, event: Optional[Event] = None) -> None:
         """
         Toggle whether the application window is always on top of all other windows.
         """
         self.topmost = not self.topmost
         self.root.attributes("-topmost", self.topmost)
 
-    def toggle_recording(self, event=None) -> None:
+    def toggle_recording(self, event: Optional[Event] = None) -> None:
         """
         Toggle screen recording on or off.
         """
@@ -91,7 +93,7 @@ class GuiInterface:
         """
         self.screen_recorder.stop()
 
-    def toggle_minimalize(self, event=None) -> None:
+    def toggle_minimalize(self, event: Optional[Event] = None) -> None:
         """
         Toggle whether to minimalize the display of system information.
         """
@@ -99,7 +101,7 @@ class GuiInterface:
         minimalize_label = "Show Less" if not self.minimalize else "Show More"
         self.tools_menu.entryconfig(2, label=minimalize_label)
 
-    def take_screenshot(self, event=None) -> None:
+    def take_screenshot(self, event: Optional[Event] = None) -> None:
         """
         Take a screenshot of the current screen and log the action.
         """
@@ -135,12 +137,12 @@ class GuiInterface:
         self.label.config(text=text)
         self.after_id = self.root.after(1000, self.update_gui)
 
-    def stop_update(self):
+    def stop_update(self) -> None:
         """Stops the scheduled GUI updates."""
         if hasattr(self, "after_id"):
             self.root.after_cancel(self.after_id)
 
-    def on_close(self):
+    def on_close(self) -> None:
         """Called when the GUI window is closed."""
         self.stop_update()
         self.root.after_cancel(self.after_id)
