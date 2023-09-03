@@ -11,7 +11,8 @@ class Processor:
     A class that provides methods to retrieve CPU-related information.
 
     Attributes:
-        system_info (settings_interface.SystemInfo): An instance of the SystemInfo class for retrieving system information.
+        system_info (settings_interface.SystemInfo): An instance of the SystemInfo class for
+        retrieving system information.
 
     Methods:
         get_cpu_load() -> List[float]: Returns the CPU load as a percentage for each CPU core.

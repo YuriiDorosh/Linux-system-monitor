@@ -6,8 +6,11 @@ class Nvidia:
     A class that provides methods to retrieve NVIDIA GPU-related information.
 
     Methods:
-        get_gpu_usage() -> int: Returns the GPU usage as a percentage if an NVIDIA GPU is available, otherwise returns 0.
-        get_gpu_frequency() -> int: Returns the current frequency of the GPU in megahertz (MHz) if an NVIDIA GPU is available, otherwise returns 0.
+        get_gpu_usage() -> int: Returns the GPU usage as a percentage if an NVIDIA GPU is available,
+        otherwise returns 0.
+        get_gpu_frequency() -> int: Returns the current frequency of the GPU in megahertz (MHz)
+        if an NVIDIA GPU is available,
+        otherwise returns 0.
 
     Usage:
         1. Initialize an instance of the Nvidia class:

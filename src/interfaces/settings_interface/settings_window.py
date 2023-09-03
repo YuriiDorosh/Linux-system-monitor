@@ -6,7 +6,8 @@ import settings  # Importing the classes and functions from the settings_interfa
 
 class SettingsWindow(tk.Tk):
     """
-    This class represents the settings_interface window. It is responsible for providing the UI for user settings_interface
+    This class represents the settings_interface window.
+    It is responsible for providing the UI for user settings_interface
     and saving them into a JSON file. It is derived from the tk.Tk class, which represents a tkinter toplevel widget,
     essentially it is the main window of an application.
     """

@@ -48,7 +48,8 @@ def load_settings_from_json(file_path: str) -> None:
     """
     Load settings_interface from a specified JSON file.
 
-    This function will attempt to load settings_interface from the given JSON file and will set default values if the file or specific fields are not found.
+    This function will attempt to load settings_interface from the given JSON file and will set default
+    values if the file or specific fields are not found.
 
     Args:
         file_path (str): Path to the JSON file containing settings_interface.

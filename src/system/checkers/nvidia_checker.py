@@ -1,4 +1,5 @@
 import pynvml
+import sys
 
 
 class CheckNvidia:
