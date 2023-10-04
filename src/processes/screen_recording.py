@@ -1,10 +1,11 @@
-import subprocess
 import datetime
-import os
 import errno
 import logging
-import settings
+import os
+import subprocess
 from typing import List
+
+import settings
 
 logging.basicConfig(level=logging.INFO)
 

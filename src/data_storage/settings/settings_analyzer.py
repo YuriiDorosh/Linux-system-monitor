@@ -1,7 +1,8 @@
 import json
 import os
-import consts
 from typing import NamedTuple
+
+import consts
 
 
 class SettingsStatus(NamedTuple):

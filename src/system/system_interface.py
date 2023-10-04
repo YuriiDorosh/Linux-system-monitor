@@ -1,12 +1,11 @@
-from .checkers import nvidia_checker
-
-from .processor import Processor
-from .battery import Battery
-from .memory import Memory
-from .disk import Disk
-from .video_cards.nvidia import Nvidia
-
 from typing import List
+
+from .battery import Battery
+from .checkers import nvidia_checker
+from .disk import Disk
+from .memory import Memory
+from .processor import Processor
+from .video_cards.nvidia import Nvidia
 
 
 class SystemInterface:

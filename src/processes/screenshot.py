@@ -1,6 +1,7 @@
-import pyautogui
-import time
 import os
+import time
+
+import pyautogui
 
 
 class Screenshot:

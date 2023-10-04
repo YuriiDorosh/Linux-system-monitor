@@ -1,11 +1,12 @@
-from tkinter import Event
+import logging
 import tkinter as tk
+from tkinter import Event
+from typing import Optional
+
 from processes.screen_recording import ScreenRecorder
-from system.system_interface import SystemInterface, ExtendedSystemInterface
 from processes.screenshot import Screenshot
 from settings import KeyBindings
-import logging
-from typing import Optional
+from system.system_interface import ExtendedSystemInterface, SystemInterface
 
 logging.basicConfig(filename="screenshot.log", level=logging.INFO)
 

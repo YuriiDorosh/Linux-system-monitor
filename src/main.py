@@ -1,15 +1,15 @@
-import sys
-import platform
+import logging
 import os
+import platform
+import sys
 
 import data_storage
-from system.checkers import nvidia_checker
-from interfaces import settings_interface
-from interfaces import gui as gui_interface
+from args import CONSOLE_ARGS, GUI_ARGS, HELP_ARGS, SETTINGS_ARGS
 from interfaces import console as console_interface
 from interfaces import greeting as greeting_interface
-from args import HELP_ARGS, GUI_ARGS, CONSOLE_ARGS, SETTINGS_ARGS
-import logging
+from interfaces import gui as gui_interface
+from interfaces import settings_interface
+from system.checkers import nvidia_checker
 
 logging.basicConfig(level=logging.DEBUG, format="%(asctime)s - %(levelname)s - %(message)s")
 

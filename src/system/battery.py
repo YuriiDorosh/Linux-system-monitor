@@ -1,5 +1,6 @@
-import psutil
 from typing import Optional
+
+import psutil
 
 
 class Battery:

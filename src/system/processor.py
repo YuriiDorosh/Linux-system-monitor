@@ -1,6 +1,6 @@
-import psutil
 import importlib
 
+import psutil
 
 module_name = "settings"
 settings = importlib.import_module(module_name)
